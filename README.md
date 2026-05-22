@@ -5,7 +5,14 @@
 
 Cursor, Claude Code, Codex처럼 프로젝트 파일을 직접 수정하는 AI와 함께 쓰는 흐름을 전제로 합니다.
 
-## 시작
+처음에는 아래 순서대로 진행하면 됩니다.
+
+1. 발표자료 폴더 만들기
+2. AI와 원고 만들기
+3. 원고를 슬라이드 화면으로 옮기기
+4. 미리보기 열기
+
+## 1. 발표자료 만들기
 
 준비물: Git, Node.js 18 이상, npm.
 
@@ -17,7 +24,7 @@ npm run create -- my_presentation
 
 생성 후 AI 편집기에서 `slide-notes` 폴더를 열고 원고부터 요청합니다.
 
-## 원고 만들기
+## 2. 원고 만들기
 
 ```text
 slide-notes 프로젝트에서 발표자료 "my_presentation" 원고를 만들어줘.
@@ -44,7 +51,7 @@ slide-map은 순서, page, content_md, 소주제 표로 만들고,
 긴 발표자료는 구성 잡기와 장별 원고 작성을 나눠도 됩니다.
 더 자세한 요청 순서는 [guide/START_HERE.md](./guide/START_HERE.md)에 있습니다.
 
-## 슬라이드 만들기
+## 3. 슬라이드 만들기
 
 ```text
 my_presentation 원고가 준비됐어.
@@ -59,7 +66,7 @@ my_presentation 원고가 준비됐어.
 
 긴 발표자료는 같은 요청을 page 단위로 나누면 필요한 원고만 읽고 진행할 수 있습니다.
 
-## 열어 보기
+## 4. 열어 보기
 
 ```bash
 npm run open -- my_presentation
