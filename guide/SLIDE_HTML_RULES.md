@@ -20,7 +20,7 @@
 ## 참고 파일
 
 - 틀: `template/slides/page_01.html`
-- 품질 예시: `examples/vibe_coding/slides/page_01.html` ~ `page_05.html`
+- 품질 예시: `examples/vibe_coding/slides/page_01.html` ~ `page_04.html`
 
 ## 수정 후
 

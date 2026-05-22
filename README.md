@@ -93,7 +93,7 @@ PDF는 `decks/my_presentation/output/`에 생성됩니다.
 | [guide/tasks/](./guide/tasks/) | 긴 발표자료 작업을 나눌 때 |
 | [guide/SLIDE_HTML_RULES.md](./guide/SLIDE_HTML_RULES.md) | 슬라이드 화면을 만들 때 |
 
-예시 발표자료는 `examples/vibe_coding`과 `examples/travel_guide_seoul`에 있습니다.
+짧은 예시 발표자료는 `examples/vibe_coding`에 있습니다.
 에이전트용 시작점은 [AGENTS.md](./AGENTS.md), [CLAUDE.md](./CLAUDE.md)입니다.
 
 **License:** MIT - [LICENSE](./LICENSE)
