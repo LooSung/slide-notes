@@ -1,0 +1,295 @@
+<!doctype html>
+
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>문제 1: 코드부터 짜고 나중에 후회</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #1e1e1e;
+                color: #ffffff;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: #1e1e1e;
+            }
+            .code-font {
+                font-family: 'JetBrains Mono', monospace;
+            }
+            .accent-top {
+                width: 100%;
+                height: 6px;
+                background-color: #f44336; /* Error Red for problem slide */
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 20;
+            }
+            .problem-badge {
+                background-color: rgba(244, 67, 54, 0.15);
+                color: #ff8a80;
+                border: 1px solid rgba(244, 67, 54, 0.3);
+                border-radius: 4px;
+                padding: 4px 12px;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            /* Message Bubbles */
+            .bubble-left {
+                background-color: #2d2d30;
+                border-left: 4px solid #007acc;
+                padding: 20px;
+                border-radius: 0 12px 12px 12px;
+                position: relative;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                max-width: 450px;
+            }
+            .bubble-left::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -12px;
+                width: 0;
+                height: 0;
+                border-top: 12px solid #2d2d30;
+                border-left: 12px solid transparent;
+            }
+
+            .bubble-right {
+                background-color: #3e2e2e; /* Reddish tint for regret */
+                border-right: 4px solid #f44336;
+                padding: 20px;
+                border-radius: 12px 0 12px 12px;
+                position: relative;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                max-width: 450px;
+                align-self: flex-end;
+            }
+            .bubble-right::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: -12px;
+                width: 0;
+                height: 0;
+                border-top: 12px solid #3e2e2e;
+                border-right: 12px solid transparent;
+            }
+
+            /* Flow connection */
+            .flow-arrow-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                padding: 0 40px;
+            }
+            .flow-line {
+                width: 4px;
+                flex-grow: 1;
+                background-color: #3e3e42;
+                position: relative;
+                margin: 10px 0;
+            }
+            .time-badge {
+                background-color: #1e1e1e;
+                border: 2px solid #f44336;
+                color: #f44336;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-weight: bold;
+                z-index: 10;
+                box-shadow: 0 0 15px rgba(244, 67, 54, 0.2);
+            }
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                background-color: #3e3e42;
+                border: 2px solid #555;
+                color: #ccc;
+            }
+            .avatar.regret {
+                border-color: #f44336;
+                color: #f44336;
+                background-color: rgba(244, 67, 54, 0.1);
+            }
+
+            .bg-pattern {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 50%;
+                background-color: rgba(255, 255, 255, 0.02);
+                z-index: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <div class="accent-top"></div>
+            <!-- Background Split -->
+            <div class="bg-pattern"></div>
+            <div class="flex h-full z-10 p-16">
+                <!-- Left Column: Problem Statement -->
+                <div class="w-2/5 pr-12 flex flex-col justify-center">
+                    <div class="mb-6">
+                        <div class="problem-badge mb-4">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            문제 1
+                        </div>
+                        <h1
+                            class="text-5xl font-black text-white leading-tight mb-8"
+                        >
+                            코드부터 짜고<br />
+                            <span class="text-red-400">나중에 후회</span>
+                        </h1>
+                        <div
+                            class="w-20 h-2 bg-gray-700 rounded-full mb-8"
+                        ></div>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <i
+                                    class="fas fa-times-circle text-red-500 mt-1 mr-4 text-xl"
+                                ></i>
+                                <p class="text-gray-400 text-lg">
+                                    설계 없이 IDE부터 켜는 습관
+                                </p>
+                            </div>
+                            <div class="flex items-start">
+                                <i
+                                    class="fas fa-times-circle text-red-500 mt-1 mr-4 text-xl"
+                                ></i>
+                                <p class="text-gray-400 text-lg">
+                                    "일단 돌아가게 만들자"는 유혹
+                                </p>
+                            </div>
+                            <div class="flex items-start">
+                                <i
+                                    class="fas fa-times-circle text-red-500 mt-1 mr-4 text-xl"
+                                ></i>
+                                <p class="text-gray-400 text-lg">
+                                    나중에 문서화하겠다는 거짓말
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Visual Flow -->
+                <div class="w-3/5 flex flex-col justify-between pl-8 relative">
+                    <!-- Scene 1: Start -->
+                    <div class="flex items-start space-x-6">
+                        <div class="flex-shrink-0">
+                            <div class="avatar">
+                                <i class="fas fa-keyboard"></i>
+                            </div>
+                        </div>
+                        <div class="bubble-left mt-2">
+                            <p
+                                class="text-blue-300 font-bold text-sm mb-1 code-font"
+                            >
+                                Dev (Day 1)
+                            </p>
+                            <p class="text-white text-xl leading-relaxed">
+                                "아, 이거 구조 대충 알겠는데? <br />
+                                <span class="text-blue-400 font-bold"
+                                    >일단 코드부터 짜볼까?</span
+                                >
+                                <br />
+                                빨리 만들 수 있을 것 같아!"
+                            </p>
+                            <div class="mt-3 flex space-x-2">
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded code-font"
+                                    >git init</span
+                                >
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded code-font"
+                                    >touch main.py</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Transition Arrow -->
+                    <div class="flex justify-center my-4 relative">
+                        <div
+                            class="absolute left-10 top-0 bottom-0 w-1 bg-gray-700 border-r border-dashed border-gray-600 opacity-30"
+                        ></div>
+                        <div class="time-badge code-font">
+                            <i class="fas fa-history mr-2"></i>2 Weeks Later...
+                        </div>
+                    </div>
+                    <!-- Scene 2: Regret -->
+                    <div class="flex items-start justify-end space-x-6">
+                        <div class="bubble-right mt-2 text-right">
+                            <p
+                                class="text-red-300 font-bold text-sm mb-1 code-font"
+                            >
+                                Dev (Day 14)
+                            </p>
+                            <p class="text-white text-xl leading-relaxed">
+                                "이 코드...
+                                <span class="text-red-400 font-bold"
+                                    >도대체 왜 이렇게 짰지?</span
+                                ><br />
+                                어떻게 동작하는 거지...?<br />
+                                문서? 그런 거 있었나...?"
+                            </p>
+                            <div class="mt-3 flex justify-end space-x-2">
+                                <span
+                                    class="text-xs bg-red-900 bg-opacity-40 text-red-300 px-2 py-1 rounded border border-red-800"
+                                    >git blame</span
+                                >
+                                <span
+                                    class="text-xs bg-red-900 bg-opacity-40 text-red-300 px-2 py-1 rounded border border-red-800"
+                                    >WTF?</span
+                                >
+                            </div>
+                        </div>
+                        <div class="flex-shrink-0 order-last ml-6">
+                            <div class="avatar regret">
+                                <i class="fas fa-dizzy"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Connection Line (Visual Only) -->
+                    <div
+                        class="absolute left-12 top-20 bottom-20 w-1 bg-gradient-to-b from-blue-500 to-red-500 opacity-20 hidden"
+                    ></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

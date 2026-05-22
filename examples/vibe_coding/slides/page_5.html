@@ -1,0 +1,262 @@
+<!doctype html>
+
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>문제 2: 설계 없이 시작하면 리팩토링 지옥</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #1e1e1e;
+                color: #ffffff;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: #1e1e1e;
+            }
+            .code-font {
+                font-family: 'JetBrains Mono', monospace;
+            }
+            .accent-top {
+                width: 100%;
+                height: 6px;
+                background-color: #f44336; /* Error Red */
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 20;
+            }
+            .problem-badge {
+                background-color: rgba(244, 67, 54, 0.15);
+                color: #ff8a80;
+                border: 1px solid rgba(244, 67, 54, 0.3);
+                border-radius: 4px;
+                padding: 4px 12px;
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .bg-pattern {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 50%;
+                background-color: rgba(255, 255, 255, 0.02);
+                z-index: 0;
+            }
+
+            /* Flow Chart Styles */
+            .flow-line {
+                position: absolute;
+                left: 2rem; /* Center of the icon (w-16 = 4rem, center is 2rem) */
+                top: 2rem;
+                bottom: 2rem;
+                width: 4px;
+                background: linear-gradient(
+                    to bottom,
+                    #3b82f6 0%,
+                    #ef4444 100%
+                );
+                z-index: 0;
+            }
+
+            .flow-node {
+                position: relative;
+                z-index: 10;
+            }
+
+            .flow-icon {
+                width: 4rem;
+                height: 4rem;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                background-color: #1e1e1e;
+                border-width: 3px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            }
+
+            .flow-content {
+                flex: 1;
+                margin-left: 1.5rem;
+                background-color: #2d2d30;
+                padding: 1rem 1.25rem;
+                border-radius: 0.5rem;
+                position: relative;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .flow-content::before {
+                content: '';
+                position: absolute;
+                left: -10px;
+                top: 50%;
+                transform: translateY(-50%);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent #2d2d30 transparent transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <div class="accent-top"></div>
+            <!-- Background Pattern -->
+            <div class="bg-pattern"></div>
+            <div class="flex h-full z-10 p-16">
+                <!-- Left Column: Problem Statement -->
+                <div class="w-2/5 pr-12 flex flex-col justify-center">
+                    <div class="mb-6">
+                        <div class="problem-badge mb-4">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            문제 2
+                        </div>
+                        <h1
+                            class="text-5xl font-black text-white leading-tight mb-8"
+                        >
+                            설계 없이 시작하면<br />
+                            <span class="text-red-400">리팩토링 지옥</span>
+                        </h1>
+                        <div
+                            class="w-20 h-2 bg-gray-700 rounded-full mb-8"
+                        ></div>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <i
+                                    class="fas fa-times-circle text-red-500 mt-1 mr-4 text-xl"
+                                ></i>
+                                <p class="text-gray-400 text-lg">
+                                    요구사항 변경에 취약한 구조
+                                </p>
+                            </div>
+                            <div class="flex items-start">
+                                <i
+                                    class="fas fa-times-circle text-red-500 mt-1 mr-4 text-xl"
+                                ></i>
+                                <p class="text-gray-400 text-lg">
+                                    땜질식 처방으로 인한 스파게티 코드
+                                </p>
+                            </div>
+                            <div class="flex items-start">
+                                <i
+                                    class="fas fa-times-circle text-red-500 mt-1 mr-4 text-xl"
+                                ></i>
+                                <p class="text-gray-400 text-lg">
+                                    기하급수적으로 늘어나는 수정 비용
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Visual Flow -->
+                <div class="w-3/5 flex flex-col justify-center pl-4 relative">
+                    <div class="relative py-2">
+                        <!-- Connecting Line -->
+                        <div class="flow-line"></div>
+                        <!-- Step 1: Requirement Change -->
+                        <div class="flow-node flex items-center mb-8">
+                            <div
+                                class="flow-icon border-blue-500 text-blue-400"
+                            >
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div
+                                class="flow-content border-l-4 border-blue-500"
+                            >
+                                <h3 class="text-blue-300 font-bold text-lg">
+                                    요구사항 변경 발생
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    "기획: 여기 필드 하나만 추가하면 되죠?"
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Step 2: Quick Fix -->
+                        <div class="flow-node flex items-center mb-8">
+                            <div
+                                class="flow-icon border-yellow-500 text-yellow-400"
+                            >
+                                <i class="fas fa-band-aid"></i>
+                            </div>
+                            <div
+                                class="flow-content border-l-4 border-yellow-500"
+                            >
+                                <h3 class="text-yellow-400 font-bold text-lg">
+                                    임시 방편 코드 수정
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    "개발: 구조 바꿀 시간 없으니 일단
+                                    if문으로..."
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Step 3: Repeated Changes -->
+                        <div class="flow-node flex items-center mb-8">
+                            <div
+                                class="flow-icon border-orange-500 text-orange-400"
+                            >
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div
+                                class="flow-content border-l-4 border-orange-500"
+                            >
+                                <h3 class="text-orange-400 font-bold text-lg">
+                                    반복되는 수정 (Side Effect)
+                                </h3>
+                                <p class="text-gray-400 text-sm mt-1">
+                                    의존성 꼬임, 테스트 실패, 버그 발생
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Step 4: Rewrite -->
+                        <div class="flow-node flex items-center">
+                            <div
+                                class="flow-icon border-red-500 text-red-500 bg-red-900 bg-opacity-20 animate-pulse"
+                            >
+                                <i class="fas fa-bomb"></i>
+                            </div>
+                            <div
+                                class="flow-content border-l-4 border-red-500 bg-red-900 bg-opacity-10"
+                            >
+                                <h3 class="text-red-400 font-bold text-lg">
+                                    완전 갈아엎기 (Rewrite)
+                                </h3>
+                                <p class="text-red-200 text-sm mt-1">
+                                    "이 코드 못 씁니다. 새로 짜야 해요."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

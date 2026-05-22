@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style="">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>진격! 바이브 코딩 - 아젠다</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #1e1e1e;
+                color: #ffffff;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: #1e1e1e;
+            }
+            .code-font {
+                font-family: 'JetBrains Mono', monospace;
+            }
+            /* Gradient replacement using solid colors with opacity/blur */
+            .bg-glow-blue {
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                border-radius: 50%;
+                background-color: rgba(0, 122, 204, 0.05); /* VS Code Blue */
+                top: -100px;
+                right: -100px;
+                filter: blur(80px);
+                z-index: 0;
+            }
+            .bg-glow-purple {
+                position: absolute;
+                width: 500px;
+                height: 500px;
+                border-radius: 50%;
+                background-color: rgba(197, 134, 192, 0.05); /* Purple */
+                bottom: -50px;
+                left: -50px;
+                filter: blur(80px);
+                z-index: 0;
+            }
+            .agenda-card {
+                background-color: #252526;
+                border-left: 4px solid #3e3e42;
+                transition: all 0.3s ease;
+            }
+            .agenda-card:hover {
+                border-left-color: #007acc;
+                background-color: #2d2d30;
+                transform: translateX(10px);
+            }
+            .timeline-connector {
+                position: absolute;
+                left: 24px;
+                top: 40px;
+                bottom: -30px;
+                width: 2px;
+                background-color: #3e3e42;
+                z-index: 0;
+            }
+            .last-item .timeline-connector {
+                display: none;
+            }
+            .number-badge {
+                z-index: 10;
+                box-shadow: 0 0 0 4px #1e1e1e;
+            }
+            .accent-bar {
+                height: 6px;
+                width: 100%;
+                background-color: #007acc;
+            }
+        </style>
+    </head>
+    <body style="">
+        <div class="slide-container">
+            <!-- Top Accent Bar -->
+            <div class="accent-bar"></div>
+            <!-- Background Glows -->
+            <div class="bg-glow-blue"></div>
+            <div class="bg-glow-purple"></div>
+            <div class="flex flex-1 z-10 p-16">
+                <!-- Left Column: Title & Intro -->
+                <div class="w-1/3 pr-12 flex flex-col justify-center">
+                    <div class="mb-8">
+                        <p
+                            class="text-blue-400 font-bold tracking-widest text-sm uppercase mb-2"
+                        >
+                            Table of Contents
+                        </p>
+                        <h1
+                            class="text-6xl font-black text-white leading-tight mb-6"
+                        >
+                            오늘의<br />
+                            <span class="text-blue-500">흐름</span>
+                        </h1>
+                        <div
+                            class="w-20 h-2 bg-gray-600 rounded-full mb-8"
+                        ></div>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            문서 중심 개발 방법론과&nbsp;
+                        </p>
+                        <p class="text-gray-400 text-lg leading-relaxed">
+                            실전 바이브 코딩 세션
+                        </p>
+                    </div>
+                    <div class="mt-auto"></div>
+                </div>
+                <!-- Right Column: Agenda Items -->
+                <div class="w-2/3 flex flex-col justify-center space-y-6">
+                    <!-- Item 1 -->
+                    <div class="flex relative group">
+                        <div class="timeline-connector"></div>
+                        <div class="mr-6 flex flex-col items-center">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-900 bg-opacity-50 text-blue-300 flex items-center justify-center font-bold text-lg number-badge border border-blue-800 group-hover:bg-blue-600 group-hover:text-white transition-colors"
+                            >
+                                1
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 agenda-card p-5 rounded-r-lg rounded-bl-lg shadow-lg"
+                        >
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-white">
+                                    바이브 코딩은 정답이 아닙니다 :(
+                                </h3>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-3">
+                                기존 개발 방식의 문제점과 해결책
+                            </p>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#문제점3가지</span
+                                >
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#문서중심</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="flex relative group">
+                        <div class="timeline-connector"></div>
+                        <div class="mr-6 flex flex-col items-center">
+                            <div
+                                class="w-12 h-12 rounded-full bg-purple-900 bg-opacity-50 text-purple-300 flex items-center justify-center font-bold text-lg number-badge border border-purple-800 group-hover:bg-purple-600 group-hover:text-white transition-colors"
+                            >
+                                2
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 agenda-card p-5 rounded-r-lg rounded-bl-lg shadow-lg"
+                        >
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-white">
+                                    핵심 방법론
+                                </h3>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-3">
+                                핵심 도구, 3단계 프로세스, AI 활용 패턴
+                            </p>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#AI어시스턴트</span
+                                >
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#3단계프로세스</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="flex relative group">
+                        <div class="timeline-connector"></div>
+                        <div class="mr-6 flex flex-col items-center">
+                            <div
+                                class="w-12 h-12 rounded-full bg-green-900 bg-opacity-50 text-green-300 flex items-center justify-center font-bold text-lg number-badge border border-green-800 group-hover:bg-green-600 group-hover:text-white transition-colors"
+                            >
+                                3
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 agenda-card p-5 rounded-r-lg rounded-bl-lg shadow-lg"
+                        >
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-white">
+                                    바이브 예시
+                                    <span
+                                        class="text-green-400 text-sm font-normal ml-2 code-font"
+                                        >&lt;Vibe Coding /&gt;</span
+                                    >
+                                </h3>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-3">
+                                유저 생성 기능 구현 (문서 → 구조 → 구현)
+                            </p>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#실전구현</span
+                                >
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#점진적구현</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="flex relative group last-item">
+                        <div class="timeline-connector"></div>
+                        <div class="mr-6 flex flex-col items-center">
+                            <div
+                                class="w-12 h-12 rounded-full bg-yellow-900 bg-opacity-50 text-yellow-300 flex items-center justify-center font-bold text-lg number-badge border border-yellow-800 group-hover:bg-yellow-600 group-hover:text-white transition-colors"
+                            >
+                                4
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 agenda-card p-5 rounded-r-lg rounded-bl-lg shadow-lg"
+                        >
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-white">
+                                    마무리 및 Q&amp;A
+                                </h3>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-3">
+                                장점 정리, 핵심 요약, 질의응답
+                            </p>
+                            <div class="flex space-x-2">
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#핵심정리</span
+                                >
+                                <span
+                                    class="text-xs bg-gray-800 text-gray-400 px-2 py-1 rounded border border-gray-700"
+                                    >#Q&amp;A</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

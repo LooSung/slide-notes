@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Step 3-1. 점진적 AI 활용 패턴</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../css/common.css" />
+        <style>
+            /* 페이지별 고유 스타일 */
+            .slide-container {
+                padding: 50px 60px;
+            }
+
+            /* Header Styles */
+            .step-badge {
+                background-color: #9c27b0;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 8px;
+                display: inline-block;
+            }
+
+            /* Content Layout */
+            .content-wrapper {
+                display: flex;
+                flex: 1;
+                gap: 60px;
+                margin-top: 20px;
+            }
+
+            .left-column {
+                flex: 3;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .right-column {
+                flex: 2;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 24px;
+            }
+
+            /* Implementation Steps Styling */
+            .impl-step {
+                display: flex;
+                align-items: flex-start;
+                background-color: #252526;
+                border: 1px solid #3e3e42;
+                padding: 16px 20px;
+                border-radius: 8px;
+                margin-bottom: 16px;
+                position: relative;
+                transition:
+                    transform 0.2s,
+                    border-color 0.2s;
+            }
+
+            .impl-step:last-child {
+                margin-bottom: 0;
+            }
+
+            .impl-step:hover {
+                transform: translateX(10px);
+                border-color: #9c27b0;
+                background-color: #2d2d30;
+            }
+
+            .step-num {
+                width: 32px;
+                height: 32px;
+                background-color: #3e3e42;
+                color: #858585;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+                font-size: 16px;
+                margin-right: 16px;
+                font-family: 'JetBrains Mono', monospace;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .impl-step:hover .step-num {
+                background-color: #9c27b0;
+                color: white;
+            }
+
+            .step-content {
+                flex: 1;
+            }
+
+            .step-title {
+                font-weight: 700;
+                font-size: 18px;
+                color: #ffffff;
+                margin-bottom: 6px;
+            }
+
+            .step-desc {
+                font-size: 13px;
+                color: #858585;
+                font-family: 'JetBrains Mono', monospace;
+                line-height: 1.5;
+                background-color: rgba(0, 0, 0, 0.2);
+                padding: 6px 10px;
+                border-radius: 4px;
+                border-left: 2px solid #569cd6;
+            }
+
+            .step-icon {
+                color: #ce93d8;
+                font-size: 18px;
+                width: 24px;
+                text-align: center;
+                margin-right: 16px;
+                margin-top: 8px;
+            }
+
+            /* Connecting Lines */
+            .connector-line {
+                position: absolute;
+                left: 36px; /* Center of step-num */
+                top: 50px; /* Below the circle */
+                height: 20px; /* Space between items */
+                width: 2px;
+                background-color: #3e3e42;
+                z-index: 0;
+            }
+
+            .impl-step:last-child .connector-line {
+                display: none;
+            }
+
+            /* Principles Cards */
+            .principle-card {
+                background-color: #2d2d30;
+                border-left: 5px solid;
+                padding: 24px;
+                border-radius: 0 12px 12px 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                position: relative;
+            }
+
+            .card-bad {
+                border-color: #f44336;
+            } /* Red */
+            .card-good {
+                border-color: #4caf50;
+            } /* Green */
+
+            .principle-icon {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 32px;
+                opacity: 0.1;
+            }
+
+            .principle-title {
+                font-size: 20px;
+                font-weight: 800;
+                color: #ffffff;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+            }
+
+            .principle-text {
+                color: #ffffff;
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            /* Background Elements */
+            .bg-grid {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image:
+                    linear-gradient(
+                        rgba(255, 255, 255, 0.03) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0.03) 1px,
+                        transparent 1px
+                    );
+                background-size: 40px 40px;
+                z-index: -1;
+            }
+
+            .highlight-keyword {
+                color: #4fc3f7;
+                font-weight: bold;
+            }
+
+            .code-snippet {
+                font-family: 'JetBrains Mono', monospace;
+                background-color: #1e1e1e;
+                padding: 2px 6px;
+                border-radius: 4px;
+                color: #dcdcaa;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <div class="bg-grid"></div>
+            <!-- Header -->
+            <div class="mb-2">
+                <div class="step-badge code-font">Best Practices</div>
+                <h1 class="text-4xl font-black text-white mb-2">
+                    AI 활용 패턴
+                    <span class="text-gray-500 font-light text-3xl ml-2"
+                        >Interaction Patterns</span
+                    >
+                </h1>
+                <p class="text-gray-400 text-lg">
+                    AI를 단순한 도구가 아닌
+                    <span class="text-purple-400 font-bold">동료 개발자</span
+                    >처럼 대하는 4가지 방법
+                </p>
+            </div>
+            <div class="content-wrapper">
+                <!-- Left Column: 4 Patterns -->
+                <div class="left-column">
+                    <!-- Pattern 1 -->
+                    <div class="impl-step">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <div class="step-title">명확한 요구사항 전달</div>
+                            <div class="step-desc">
+                                "이메일, 비밀번호, 이름을 받아서 User 모델로
+                                만들고, 비번은 bcrypt로 해싱해서 MongoDB에
+                                저장해줘"
+                            </div>
+                        </div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <!-- Pattern 2 -->
+                    <div class="impl-step">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <div class="step-title">컨텍스트 제공</div>
+                            <div class="step-desc">
+                                "기존 프로젝트 구조의
+                                <span class="code-snippet"
+                                    >get_mongodb_client()</span
+                                >
+                                함수를 참고해서 UserRepository를 구현해줘"
+                            </div>
+                        </div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <!-- Pattern 3 -->
+                    <div class="impl-step">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <div class="step-title">점진적 개선</div>
+                            <div class="step-desc">
+                                1. "일단 User 모델만 만들어줘" → 2. "이제
+                                Repository 추가해줘" → 3. "서비스 로직 구현해줘"
+                            </div>
+                        </div>
+                        <div class="connector-line"></div>
+                    </div>
+                    <!-- Pattern 4 -->
+                    <div class="impl-step">
+                        <div class="step-num">4</div>
+                        <div class="step-content">
+                            <div class="step-title">함께 개선하기</div>
+                            <div class="step-desc">
+                                "이 코드 괜찮은데, 비밀번호 검증 로직은 별도
+                                <span class="code-snippet">private method</span
+                                >로 분리하는 게 좋을 것 같아"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Comparison -->
+                <div class="right-column">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-balance-scale text-gray-400 mr-2"></i>
+                        <h2 class="text-xl font-bold text-gray-200">
+                            Before &amp; After
+                        </h2>
+                    </div>
+                    <!-- Bad Example -->
+                    <div class="principle-card card-bad">
+                        <i
+                            class="fas fa-times-circle principle-icon text-red-500"
+                        ></i>
+                        <div class="principle-title text-red-400">
+                            <i
+                                class="fas fa-exclamation-triangle mr-2 text-sm"
+                            ></i
+                            >나쁜 질문 (Vague)
+                        </div>
+                        <p class="principle-text mb-2">
+                            "유저 생성 기능 만들어줘"
+                        </p>
+                        <p class="text-gray-500 text-sm italic">
+                            → AI가 마음대로 구조를 잡고, 프로젝트 스타일과 맞지
+                            않는 코드를 생성할 확률이 높습니다.
+                        </p>
+                    </div>
+                    <!-- Good Example -->
+                    <div class="principle-card card-good">
+                        <i
+                            class="fas fa-check-circle principle-icon text-green-500"
+                        ></i>
+                        <div class="principle-title text-green-400">
+                            <i class="fas fa-thumbs-up mr-2 text-sm"></i>좋은
+                            질문 (Specific)
+                        </div>
+                        <p class="principle-text mb-2">
+                            "User 도메인 모델을 기반으로 이메일 중복 체크가
+                            포함된 서비스 로직을 짜줘"
+                        </p>
+                        <p class="text-gray-500 text-sm italic">
+                            → 구체적인 요구사항과
+                            <span class="text-green-300">컨텍스트</span>를
+                            제공하면, 수정할 필요가 거의 없는 완벽한 초안을 얻을
+                            수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

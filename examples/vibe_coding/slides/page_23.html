@@ -1,0 +1,470 @@
+<!doctype html>
+
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>마무리 및 Q&amp;A</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #1e1e1e;
+                color: #ffffff;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: #1e1e1e;
+                padding: 35px 60px;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            .code-font {
+                font-family: 'JetBrains Mono', monospace;
+            }
+
+            /* Grid Layout for Main Content */
+            .content-grid {
+                display: grid;
+                grid-template-rows: auto auto 1fr;
+                gap: 20px;
+                height: 100%;
+                min-height: 0;
+            }
+
+            /* Advantage Cards */
+            .advantages-row {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+            .adv-card {
+                background-color: #252526;
+                border: 1px solid #3e3e42;
+                border-radius: 10px;
+                padding: 16px;
+                text-align: center;
+                transition:
+                    transform 0.2s,
+                    border-color 0.2s;
+            }
+            .adv-card:hover {
+                transform: translateY(-5px);
+                border-color: #007acc;
+            }
+            .adv-icon {
+                font-size: 24px;
+                margin-bottom: 10px;
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            /* Recipe Flow */
+            .recipe-container {
+                background-color: #2d2d30;
+                border-radius: 12px;
+                padding: 16px 24px;
+                border: 1px solid #3e3e42;
+            }
+            .recipe-flow {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: relative;
+            }
+            .recipe-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 10;
+                min-width: 100px;
+            }
+            .recipe-badge {
+                background-color: #1e1e1e;
+                border: 2px solid #569cd6;
+                color: #569cd6;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-weight: bold;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 14px;
+                margin-bottom: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+            .recipe-label {
+                font-size: 14px;
+                color: #ffffff;
+                font-weight: 500;
+            }
+            .recipe-arrow {
+                color: #4b5563;
+                font-size: 18px;
+            }
+
+            /* Bottom Section */
+            .bottom-section {
+                display: grid;
+                grid-template-columns: 1fr 1.2fr;
+                gap: 20px;
+                min-height: 0;
+                overflow: hidden;
+            }
+
+            /* Action Guide */
+            .action-box {
+                background-color: rgba(79, 195, 247, 0.1);
+                border: 1px solid rgba(79, 195, 247, 0.3);
+                border-radius: 12px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow-y: auto;
+            }
+            .action-list {
+                margin-top: 15px;
+            }
+            .action-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 12px;
+                color: #ffffff;
+            }
+            .action-check {
+                color: #4fc3f7;
+                margin-right: 12px;
+            }
+
+            /* Q&A Section */
+            .qna-box {
+                background-color: #252526;
+                border: 1px dashed #569cd6;
+                border-radius: 12px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .qna-bg-icon {
+                position: absolute;
+                right: -20px;
+                bottom: -20px;
+                font-size: 150px;
+                color: rgba(255, 255, 255, 0.03);
+                z-index: 0;
+            }
+            .qna-content {
+                z-index: 10;
+                text-align: center;
+                width: 100%;
+            }
+
+            .question-card {
+                background-color: #333333;
+                border-radius: 8px;
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                text-align: left;
+                font-size: 14px;
+                color: #ffffff;
+                border-left: 3px solid #ce9178;
+            }
+
+            /* Colors for Advantages */
+            .adv-1 .adv-icon {
+                color: #4fc3f7;
+                border: 2px solid rgba(79, 195, 247, 0.3);
+            }
+            .adv-2 .adv-icon {
+                color: #66bb6a;
+                border: 2px solid rgba(102, 187, 106, 0.3);
+            }
+            .adv-3 .adv-icon {
+                color: #ffa726;
+                border: 2px solid rgba(255, 167, 38, 0.3);
+            }
+            .adv-4 .adv-icon {
+                color: #ab47bc;
+                border: 2px solid rgba(171, 71, 188, 0.3);
+            }
+
+            .slide-footer {
+                margin-top: auto;
+                border-top: 1px solid #333;
+                padding-top: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 11px;
+                color: #666;
+                flex-shrink: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="flex justify-between items-end mb-4">
+                <div>
+                    <p
+                        class="text-blue-400 font-bold tracking-widest text-xs uppercase mb-1"
+                    >
+                        Part 4. 마무리
+                    </p>
+                    <h1 class="text-3xl font-black text-white">
+                        핵심 정리
+                        <span class="text-gray-500 font-light">&amp;</span>
+                        Q&amp;A
+                    </h1>
+                </div>
+                <div class="text-right">
+                    <p class="text-base text-gray-400 font-medium">
+                        "진격! 바이브 코딩으로 함께 성장하세요"
+                    </p>
+                </div>
+            </header>
+            <div class="content-grid">
+                <!-- 1. Advantages Row -->
+                <div class="advantages-row">
+                    <!-- Adv 1 -->
+                    <div class="adv-card adv-1">
+                        <div class="adv-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-1">
+                            명확한 설계
+                        </h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            큰 그림을 먼저 파악하여<br />시행착오 최소화
+                        </p>
+                    </div>
+                    <!-- Adv 2 -->
+                    <div class="adv-card adv-2">
+                        <div class="adv-icon"><i class="fas fa-tools"></i></div>
+                        <h3 class="text-base font-bold text-white mb-1">
+                            유지보수성
+                        </h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            코드와 문서의 동행<br />빠른 온보딩 가능
+                        </p>
+                    </div>
+                    <!-- Adv 3 -->
+                    <div class="adv-card adv-3">
+                        <div class="adv-icon"><i class="fas fa-robot"></i></div>
+                        <h3 class="text-base font-bold text-white mb-1">
+                            AI 협업 효율
+                        </h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            명확한 컨텍스트 전달로<br />고품질 코드 생성
+                        </p>
+                    </div>
+                    <!-- Adv 4 -->
+                    <div class="adv-card adv-4">
+                        <div class="adv-icon"><i class="fas fa-users"></i></div>
+                        <h3 class="text-base font-bold text-white mb-1">
+                            지식 공유
+                        </h3>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            개발 과정의 투명화<br />팀 전체 기술 성장
+                        </p>
+                    </div>
+                </div>
+                <!-- 2. Core Recipe Flow -->
+                <div class="recipe-container">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-utensils text-yellow-500 mr-2"></i>
+                        <h3 class="text-lg font-bold text-white">
+                            핵심 레시피 (Core Workflow)
+                        </h3>
+                    </div>
+                    <div class="recipe-flow">
+                        <!-- Step 0 -->
+                        <div class="recipe-step">
+                            <div
+                                class="recipe-badge"
+                                style="border-color: #808080; color: #858585"
+                            >
+                                AGENTS.md
+                            </div>
+                            <span class="recipe-label">초기화</span>
+                        </div>
+                        <div class="recipe-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <!-- Step 1 -->
+                        <div class="recipe-step">
+                            <div
+                                class="recipe-badge"
+                                style="border-color: #4fc3f7; color: #4fc3f7"
+                            >
+                                문서 작성
+                            </div>
+                            <span class="recipe-label">기능 설계</span>
+                        </div>
+                        <div class="recipe-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="recipe-step">
+                            <div
+                                class="recipe-badge"
+                                style="border-color: #ab47bc; color: #ab47bc"
+                            >
+                                구조 설계
+                            </div>
+                            <span class="recipe-label">계층 분리</span>
+                        </div>
+                        <div class="recipe-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="recipe-step">
+                            <div
+                                class="recipe-badge"
+                                style="border-color: #66bb6a; color: #66bb6a"
+                            >
+                                점진적 구현
+                            </div>
+                            <span class="recipe-label">AI 페어 코딩</span>
+                        </div>
+                        <div class="recipe-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="recipe-step">
+                            <div
+                                class="recipe-badge"
+                                style="border-color: #ffa726; color: #ffa726"
+                            >
+                                업데이트
+                            </div>
+                            <span class="recipe-label">문서 동기화</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 3. Bottom Section: Action & Q&A -->
+                <div class="bottom-section">
+                    <!-- Left: Start Guide -->
+                    <div class="action-box">
+                        <h3 class="text-xl font-bold text-blue-300 mb-1">
+                            🚀 오늘부터 시작하기
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-4">
+                            작은 기능부터 바로 적용해보세요!
+                        </p>
+                        <div class="action-list">
+                            <div class="action-item">
+                                <i class="fas fa-check-circle action-check"></i>
+                                <p class="text-sm">
+                                    프로젝트 루트에
+                                    <span
+                                        class="code-font text-yellow-400 bg-gray-800 px-1 rounded"
+                                        >AGENTS.md</span
+                                    >
+                                    생성
+                                </p>
+                            </div>
+                            <div class="action-item">
+                                <i class="fas fa-check-circle action-check"></i>
+                                <p class="text-sm">
+                                    다음 기능 구현 전
+                                    <span class="code-font text-blue-300"
+                                        >Markdown 문서</span
+                                    >
+                                    먼저 작성
+                                </p>
+                            </div>
+                            <div class="action-item">
+                                <i class="fas fa-check-circle action-check"></i>
+                                <p class="text-sm">
+                                    AI에게
+                                    <span class="code-font text-green-300"
+                                        >명확한 요구사항</span
+                                    >
+                                    전달하며 코딩
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right: Q&A -->
+                    <div class="qna-box">
+                        <i class="fas fa-question-circle qna-bg-icon"></i>
+                        <div class="qna-content">
+                            <h2 class="text-2xl font-black text-white mb-4">
+                                Q &amp; A
+                            </h2>
+                            <div class="w-full">
+                                <div class="question-card">
+                                    <p class="font-bold mb-1 text-gray-400">
+                                        <i
+                                            class="fas fa-comment-dots mr-2 text-blue-400"
+                                        ></i
+                                        >문서 작성이 시간 낭비 아닌가요?
+                                    </p>
+                                </div>
+                                <div class="question-card">
+                                    <p class="font-bold mb-1 text-gray-400">
+                                        <i
+                                            class="fas fa-comment-dots mr-2 text-blue-400"
+                                        ></i
+                                        >AI가 틀린 코드를 주면 어떡하죠?
+                                    </p>
+                                </div>
+                                <div class="question-card">
+                                    <p class="font-bold mb-1 text-gray-400">
+                                        <i
+                                            class="fas fa-comment-dots mr-2 text-blue-400"
+                                        ></i
+                                        >기존 프로젝트에도 적용 가능한가요?
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-4">
+                                무엇이든 물어보세요! 😊
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="slide-footer">
+                <p>감사합니다! 🎉</p>
+                <div class="flex gap-4">
+                    <span class="flex items-center gap-2"
+                        ><i class="fab fa-github"></i>
+                        github.com/your-project</span
+                    >
+                    <span class="flex items-center gap-2"
+                        ><i class="fas fa-book"></i> Vibe Coding Guide</span
+                    >
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

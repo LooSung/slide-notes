@@ -1,0 +1,325 @@
+<!doctype html>
+
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Step 0. 프로젝트 초기화</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #1e1e1e;
+                color: #ffffff;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: #1e1e1e;
+                padding: 40px 60px;
+                box-sizing: border-box;
+            }
+            .code-font {
+                font-family: 'JetBrains Mono', monospace;
+            }
+
+            /* IDE Window Styles */
+            .ide-window {
+                flex: 1;
+                background-color: #1e1e1e;
+                border: 1px solid #3e3e42;
+                border-radius: 12px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                margin-top: 20px;
+            }
+
+            .ide-header {
+                background-color: #252526;
+                padding: 10px 20px;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            .window-controls {
+                display: flex;
+                gap: 8px;
+                margin-right: 20px;
+            }
+            .control-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+            }
+
+            .file-tab {
+                background-color: #1e1e1e;
+                padding: 6px 16px;
+                border-radius: 4px 4px 0 0;
+                font-size: 13px;
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                border-top: 1px solid #007acc; /* Active Tab Indicator */
+            }
+
+            .ide-body {
+                flex: 1;
+                display: flex;
+                background-color: #1e1e1e;
+                overflow: hidden;
+            }
+
+            .line-numbers {
+                background-color: #1e1e1e;
+                color: #858585;
+                padding: 20px 15px 20px 20px;
+                text-align: right;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 14px;
+                line-height: 1.6;
+                border-right: 1px solid #333;
+                user-select: none;
+            }
+
+            .code-content {
+                flex: 1;
+                padding: 20px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 15px; /* Slightly larger for tree view */
+                line-height: 1.6;
+                color: #ffffff;
+                overflow-y: hidden;
+                position: relative;
+            }
+
+            /* Markdown Syntax Highlighting */
+            .tree-folder {
+                color: #569cd6;
+                font-weight: bold;
+            }
+            .tree-file {
+                color: #dcdcaa;
+                font-weight: bold;
+            }
+            .tree-branch {
+                color: #858585;
+            }
+            .tree-comment {
+                color: #6a9955;
+                margin-left: 8px;
+                font-style: italic;
+            }
+            .tree-py {
+                color: #dcdcaa;
+            } /* Python icon color equivalent */
+
+            .cursor {
+                display: inline-block;
+                width: 2px;
+                height: 1em;
+                background-color: #aeafad;
+                animation: blink 1s step-end infinite;
+                vertical-align: text-bottom;
+            }
+            @keyframes blink {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            .status-bar {
+                background-color: #007acc;
+                color: white;
+                padding: 4px 12px;
+                font-size: 12px;
+                display: flex;
+                justify-content: space-between;
+                font-family: 'Noto Sans KR', sans-serif;
+            }
+
+            .badge-step {
+                background-color: #007acc;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 8px;
+                display: inline-block;
+            }
+
+            .highlight-bg {
+                position: absolute;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.03);
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <div class="flex items-end justify-between mb-2">
+                <div>
+                    <div class="badge-step code-font">Step 0</div>
+                    <h1 class="text-4xl font-black text-white">
+                        프로젝트 초기화
+                        <span class="text-gray-500 font-light text-3xl ml-2"
+                            >Project Initialization</span
+                        >
+                    </h1>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-400 text-sm">
+                        AI와 팀원을 위한 프로젝트 컨텍스트 설정
+                    </p>
+                    <div
+                        class="flex items-center gap-2 mt-1 justify-end text-gray-400 text-xs code-font"
+                    >
+                        <i class="fas fa-file-code"></i> AGENTS.md
+                        <i class="fas fa-info-circle"></i> 컨텍스트 설정
+                    </div>
+                </div>
+            </div>
+            <!-- IDE Window -->
+            <div class="ide-window">
+                <!-- Title Bar -->
+                <div class="ide-header">
+                    <div class="window-controls">
+                        <div
+                            class="control-dot"
+                            style="background-color: #ff5f56"
+                        ></div>
+                        <div
+                            class="control-dot"
+                            style="background-color: #ffbd2e"
+                        ></div>
+                        <div
+                            class="control-dot"
+                            style="background-color: #27c93f"
+                        ></div>
+                    </div>
+                    <div class="file-tab">
+                        <i class="fas fa-file-code text-blue-400"></i>
+                        <span>AGENTS.md</span>
+                        <span class="text-gray-500 ml-2 text-xs">프로젝트 루트</span>
+                        <i class="fas fa-times ml-2 text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+                <!-- Editor Body -->
+                <div class="ide-body">
+                    <!-- Line Numbers -->
+                    <div class="line-numbers">
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                        <p>4</p>
+                        <p>5</p>
+                        <p>6</p>
+                        <p>7</p>
+                        <p>8</p>
+                        <p>9</p>
+                        <p>10</p>
+                        <p>11</p>
+                        <p>12</p>
+                        <p>13</p>
+                        <p>14</p>
+                        <p>15</p>
+                        <p>16</p>
+                        <p>17</p>
+                        <p>18</p>
+                        <p>19</p>
+                        <p>20</p>
+                        <p>21</p>
+                        <p>22</p>
+                        <p>23</p>
+                        <p>24</p>
+                        <p>25</p>
+                    </div>
+                    <!-- Code Content -->
+                    <div class="code-content">
+                        <div
+                            class="highlight-bg"
+                            style="top: 20px; height: 80px"
+                        ></div>
+                        <!-- Markdown Content -->
+                        <p><span class="tree-file"># Repository Guidelines</span></p>
+                        <p></p>
+                        <p><span class="tree-file">## Project Structure &amp; Module Organization</span></p>
+                        <p></p>
+                        <p><span class="tree-comment">```</span></p>
+                        <p><span class="tree-folder">app/</span></p>
+                        <p><span class="tree-branch">  application/</span> <span class="tree-comment"># DTOs + use-case services</span></p>
+                        <p><span class="tree-branch">  domain/</span> <span class="tree-comment"># Domain models</span></p>
+                        <p><span class="tree-branch">  infrastructure/</span> <span class="tree-comment"># Persistence, integrations</span></p>
+                        <p><span class="tree-branch">  presentation/</span> <span class="tree-comment"># API layer</span></p>
+                        <p><span class="tree-branch">  shared/</span> <span class="tree-comment"># Cross-cutting utilities</span></p>
+                        <p><span class="tree-comment">```</span></p>
+                        <p></p>
+                        <p><span class="tree-file">## Architecture Overview</span></p>
+                        <p><span class="tree-comment">- Clean Architecture 기반</span></p>
+                        <p><span class="tree-comment">- 계층별 분리 (Domain, Application, Infrastructure, Presentation)</span></p>
+                        <p></p>
+                        <p><span class="tree-file">## Coding Style &amp; Naming Conventions</span></p>
+                        <p><span class="tree-comment">- Python 3.10, 4-space indentation</span></p>
+                        <p><span class="tree-comment">- snake_case for functions, PascalCase for classes</span></p>
+                        <p><span class="tree-comment">- 120-character line length</span></p>
+                        <p></p>
+                        <p><span class="tree-file">## Testing Guidelines</span></p>
+                        <p><span class="tree-comment">- Pytest 사용</span></p>
+                        <p><span class="tree-comment">- Coverage 60% 이상 유지</span></p>
+                        <p></p>
+                        <p><span class="tree-file">## Commit &amp; Pull Request Guidelines</span></p>
+                        <p><span class="tree-comment">- feat, hot-fix, refactor 등의 prefix 사용</span></p>
+                        <p><span class="tree-comment">- 72자 이내로 커밋 메시지 작성</span></p>
+                        <p><span class="cursor"></span></p>
+                    </div>
+                </div>
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="flex gap-4">
+                        <span
+                            ><i class="fas fa-file-code text-xs mr-1"></i>
+                            AGENTS.md</span
+                        >
+                        <span
+                            ><i class="fas fa-check text-xs mr-1"></i>
+                            Markdown</span
+                        >
+                    </div>
+                    <div class="flex gap-4">
+                        <span><i class="fas fa-info-circle mr-1"></i>컨텍스트 설정</span>
+                        <span><i class="fas fa-users mr-1"></i>팀 가이드라인</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,504 @@
+<!doctype html>
+
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Step 4. 저장소 구현</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            /* 기존 스타일 유지 */
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans KR', sans-serif;
+                background-color: #1e1e1e;
+                color: #ffffff;
+                overflow: hidden;
+            }
+            .slide-container {
+                width: 1280px;
+                height: 720px;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                background-color: #1e1e1e;
+                padding: 40px 60px;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            .code-font {
+                font-family: 'JetBrains Mono', monospace;
+            }
+            .badge-step {
+                background-color: #007acc;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 4px;
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: 8px;
+                display: inline-block;
+            }
+
+            .left-panel {
+                width: 45%;
+                padding: 0 30px 0 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                z-index: 10;
+            }
+            .right-panel {
+                width: 55%;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+            }
+
+            /* 카드 스타일 재활용 */
+            .info-card {
+                background-color: #252526;
+                border: 1px solid #3e3e42;
+                border-radius: 8px;
+                padding: 20px;
+                margin-bottom: 16px;
+                display: flex;
+                align-items: flex-start;
+            }
+            .info-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                margin-right: 16px;
+                flex-shrink: 0;
+            }
+
+            /* 체크리스트 스타일 */
+            .checklist-container {
+                background-color: #1e1e1e;
+                border: 1px solid #3e3e42;
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 10px;
+            }
+            .checklist-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                color: #ffffff;
+            }
+            .checklist-item:last-child {
+                margin-bottom: 0;
+            }
+            .check-icon {
+                color: #4ec9b0;
+                margin-right: 10px;
+            }
+
+            /* 코드 윈도우 스타일 (채팅 윈도우 변형) */
+            .code-window {
+                width: 100%;
+                height: 580px;
+                background-color: #1e1e1e;
+                border: 1px solid #3e3e42;
+                border-radius: 12px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .window-header {
+                background-color: #252526;
+                padding: 12px 20px;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #dee2e6;
+            }
+            .window-controls {
+                display: flex;
+                gap: 8px;
+                margin-right: 16px;
+            }
+            .control-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+            }
+
+            /* 탭 스타일 */
+            .tabs-container {
+                display: flex;
+                gap: 2px;
+                margin-left: 10px;
+            }
+            .tab {
+                padding: 6px 16px;
+                border-radius: 6px 6px 0 0;
+                font-size: 13px;
+                color: #858585;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+                background-color: #2d2d2d;
+            }
+            .tab.active {
+                background-color: #1e1e1e;
+                color: #ffffff;
+                border-top: 2px solid #007acc;
+            }
+
+            .code-content {
+                flex: 1;
+                padding: 0;
+                overflow: hidden;
+                background-color: #1e1e1e;
+                display: flex;
+                flex-direction: column;
+            }
+            .editor-area {
+                padding: 20px;
+                overflow-y: auto;
+                flex: 1;
+            }
+
+            .line {
+                display: flex;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .line-num {
+                color: #858585;
+                width: 40px;
+                text-align: right;
+                margin-right: 20px;
+                user-select: none;
+            }
+            .code-text {
+                color: #ffffff;
+            }
+
+            /* 구문 강조 색상 */
+            .k {
+                color: #569cd6;
+            } /* keyword */
+            .f {
+                color: #dcdcaa;
+            } /* function */
+            .s {
+                color: #ce9178;
+            } /* string */
+            .c {
+                color: #6a9955;
+            } /* comment */
+            .t {
+                color: #4ec9b0;
+            } /* type/class */
+            .v {
+                color: #9cdcfe;
+            } /* variable */
+            .d {
+                color: #ffffff;
+            } /* default */
+
+            .bg-decoration {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 600px;
+                height: 100%;
+                background-color: #252526;
+                z-index: 0;
+            }
+            .decoration-line {
+                position: absolute;
+                top: 0;
+                left: 45%;
+                width: 1px;
+                height: 100%;
+                background-color: #3e3e42;
+                z-index: 1;
+            }
+
+            /* 터미널 패널 */
+            .terminal-panel {
+                height: 120px;
+                border-top: 1px solid #3e3e42;
+                background-color: #1e1e1e;
+                padding: 10px 20px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+            }
+            .terminal-header {
+                display: flex;
+                justify-content: space-between;
+                color: #ffffff;
+                margin-bottom: 8px;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .terminal-line {
+                margin-bottom: 4px;
+            }
+            .term-green {
+                color: #4ec9b0;
+            }
+            .term-blue {
+                color: #569cd6;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <div class="flex items-end justify-between mb-2 z-10 relative">
+                <div>
+                    <div class="badge-step code-font">Step 4</div>
+                    <h1 class="text-4xl font-black text-white">
+                        저장소 구현
+                        <span class="text-gray-500 font-light text-3xl ml-2"
+                            >Repository Implementation</span
+                        >
+                    </h1>
+                </div>
+                <div class="text-right">
+                    <p class="text-gray-400 text-sm">
+                        Infrastructure Layer 구현
+                    </p>
+                    <div
+                        class="flex items-center gap-2 mt-1 justify-end text-green-400 text-xs code-font"
+                    >
+                        <i class="fas fa-database"></i> MongoDB
+                        <i class="fas fa-check-circle"></i> 인터페이스 구현
+                    </div>
+                </div>
+            </div>
+            <div class="bg-decoration"></div>
+            <div class="decoration-line"></div>
+            <!-- Content -->
+            <div class="flex flex-1 relative z-10" style="margin-top: 20px;">
+                <!-- Left Panel -->
+                <div class="left-panel">
+                    <div class="space-y-4">
+                        <!-- Info 1: Repository -->
+                        <div class="info-card">
+                            <div
+                                class="info-icon bg-green-900 bg-opacity-20 text-green-400 border border-green-900"
+                            >
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-1">
+                                    UserRepositoryImpl
+                                </h3>
+                                <p class="text-gray-400 text-sm mb-1">
+                                    Infrastructure Layer (MongoDB)
+                                </p>
+                                <p class="text-xs text-gray-500 code-font">
+                                    insert_one(user.model_dump())
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Right Panel: Code Window -->
+            <div class="right-panel">
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="window-controls">
+                            <div
+                                class="control-dot"
+                                style="background-color: #ff5f56"
+                            ></div>
+                            <div
+                                class="control-dot"
+                                style="background-color: #ffbd2e"
+                            ></div>
+                            <div
+                                class="control-dot"
+                                style="background-color: #27c93f"
+                            ></div>
+                        </div>
+                        <div class="file-tab" style="margin-left: 10px;">
+                            <i class="fab fa-python text-yellow-500"></i>
+                            <span>user_repository_impl.py</span>
+                            <span class="text-gray-500 ml-2 text-xs"
+                                >app/infrastructure/repositories/account</span
+                            >
+                        </div>
+                    </div>
+                    <div class="code-content">
+                        <div class="editor-area">
+                            <div class="line">
+                                <div class="line-num">1</div>
+                                <div class="code-text">
+                                    <span class="k">from</span> typing
+                                    <span class="k">import</span> Optional
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">2</div>
+                                <div class="code-text">
+                                    <span class="k">from</span> uuid
+                                    <span class="k">import</span> UUID
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">3</div>
+                                <div class="code-text"><br /></div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">4</div>
+                                <div class="code-text">
+                                    <span class="k">from</span> app.domain.account.user
+                                    <span class="k">import</span> <span class="t">User</span>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">5</div>
+                                <div class="code-text">
+                                    <span class="k">from</span> app.domain.account.repository.user_repository
+                                    <span class="k">import</span> <span class="t">UserRepository</span>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">6</div>
+                                <div class="code-text">
+                                    <span class="k">from</span> app.infrastructure.persistence.documentdb.mongodb
+                                    <span class="k">import</span> get_mongodb_client
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">7</div>
+                                <div class="code-text"><br /></div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">8</div>
+                                <div class="code-text">
+                                    <span class="k">class</span> <span class="t">UserRepositoryImpl</span>(<span class="t">UserRepository</span>):
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">9</div>
+                                <div class="code-text">
+                                        <span class="c">"""유저 저장소 MongoDB 구현"""</span>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">10</div>
+                                <div class="code-text"><br /></div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">11</div>
+                                <div class="code-text">
+                                        <span class="k">def</span> <span class="f">__init__</span>(<span class="v">self</span>):
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">12</div>
+                                <div class="code-text">
+                                            <span class="v">self</span>.collection = get_mongodb_client()[<span class="s">"internal"</span>][<span class="s">"user"</span>]
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">13</div>
+                                <div class="code-text"><br /></div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">14</div>
+                                <div class="code-text">
+                                        <span class="k">async def</span> <span class="f">create</span>(<span class="v">self</span>, user: <span class="t">User</span>) -&gt; <span class="t">User</span>:
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">15</div>
+                                <div class="code-text">
+                                            <span class="c">"""유저 생성"""</span>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">16</div>
+                                <div class="code-text">
+                                            user_dict = user.<span class="f">model_dump</span>()
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">17</div>
+                                <div class="code-text">
+                                            <span class="k">await</span> <span class="v">self</span>.collection.<span class="f">insert_one</span>(user_dict)
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">18</div>
+                                <div class="code-text">
+                                            <span class="k">return</span> user
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">19</div>
+                                <div class="code-text"><br /></div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">20</div>
+                                <div class="code-text">
+                                        <span class="k">async def</span> <span class="f">get_by_email</span>(<span class="v">self</span>, email: <span class="t">str</span>) -&gt; Optional[<span class="t">User</span>]:
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">21</div>
+                                <div class="code-text">
+                                            <span class="c">"""이메일로 유저 조회"""</span>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">22</div>
+                                <div class="code-text">
+                                            user_doc = <span class="k">await</span> <span class="v">self</span>.collection.<span class="f">find_one</span>({<span class="s">"email"</span>: email})
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">23</div>
+                                <div class="code-text">
+                                            <span class="k">if</span> <span class="k">not</span> user_doc:
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">24</div>
+                                <div class="code-text">
+                                                <span class="k">return</span> <span class="k">None</span>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="line-num">25</div>
+                                <div class="code-text">
+                                            <span class="k">return</span> <span class="t">User</span>(**user_doc)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </body>
+</html>

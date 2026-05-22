@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>진격! 바이브 코딩 - 커버</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&family=Black+Han+Sans&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../css/common.css" />
+        <style>
+            /* 페이지별 고유 스타일 */
+            .slide-container {
+                background-image:
+                    radial-gradient(
+                        circle at 10% 20%,
+                        rgba(97, 218, 251, 0.05) 0%,
+                        transparent 20%
+                    ),
+                    radial-gradient(
+                        circle at 90% 80%,
+                        rgba(197, 134, 192, 0.05) 0%,
+                        transparent 20%
+                    );
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Top Accent Bar -->
+            <div class="accent-bar"></div>
+            <!-- Background Decorations -->
+            <div
+                class="absolute top-20 left-20 text-7xl text-gray-700 opacity-5"
+            >
+                <i class="fas fa-code"></i>
+            </div>
+            <div
+                class="absolute bottom-20 right-20 text-9xl text-gray-700 opacity-5"
+            >
+                <i class="fas fa-robot"></i>
+            </div>
+            <!-- Main Content -->
+            <div
+                class="flex-1 flex flex-col justify-center items-center z-10 px-12"
+            >
+                <!-- Tagline -->
+                <div class="mb-6 flex items-center space-x-3 opacity-80"></div>
+                <!-- Main Title -->
+                <h1
+                    class="text-8xl mb-4 font-black tracking-tight text-white title-glow relative"
+                >
+                    <span
+                        class="text-transparent bg-clip-text"
+                        style="-webkit-text-stroke: 2px #ffffff"
+                        >진격!</span
+                    >
+                    <span class="text-blue-400">바이브</span> 코딩
+                </h1>
+                <!-- Subtitle -->
+                <div class="w-32 h-1 bg-gray-500 mb-8 rounded-full"></div>
+                <p
+                    class="text-3xl font-light text-gray-300 mb-12 text-center leading-relaxed"
+                >
+                    AI와 함께하는
+                    <span
+                        class="font-bold text-white border-b-2 border-blue-500"
+                        >문서 중심</span
+                    >
+                    개발 방법론
+                </p>
+                <!-- Time Info -->
+
+                <!-- Keywords / Footer -->
+                <div class="grid grid-cols-3 gap-6 w-full max-w-4xl">
+                    <!-- Keyword 1 -->
+                    <div
+                        class="keyword-card p-4 rounded-lg flex items-center space-x-4 transform transition hover:-translate-y-1"
+                    >
+                        <div
+                            class="w-12 h-12 bg-blue-900 bg-opacity-30 rounded-full flex items-center justify-center text-blue-400 text-xl"
+                        >
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-xs text-gray-400 uppercase tracking-wider"
+                            >
+                                Methodology
+                            </p>
+                            <p class="font-bold text-lg">문서 중심 개발</p>
+                        </div>
+                    </div>
+                    <!-- Keyword 2 -->
+                    <div
+                        class="keyword-card p-4 rounded-lg flex items-center space-x-4 transform transition hover:-translate-y-1"
+                    >
+                        <div
+                            class="w-12 h-12 bg-purple-900 bg-opacity-30 rounded-full flex items-center justify-center text-purple-400 text-xl"
+                        >
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-xs text-gray-400 uppercase tracking-wider"
+                            >
+                                Collaboration
+                            </p>
+                            <p class="font-bold text-lg">AI 페어 프로그래밍</p>
+                        </div>
+                    </div>
+                    <!-- Keyword 3 -->
+                    <div
+                        class="keyword-card p-4 rounded-lg flex items-center space-x-4 transform transition hover:-translate-y-1"
+                    >
+                        <div
+                            class="w-12 h-12 bg-green-900 bg-opacity-30 rounded-full flex items-center justify-center text-green-400 text-xl"
+                        >
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-xs text-gray-400 uppercase tracking-wider"
+                            >
+                                Strategy
+                            </p>
+                            <p class="font-bold text-lg">점진적 구현</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Decoration -->
+            <div class="w-full h-2 bg-gray-800 flex">
+                <div class="w-1/4 h-full bg-blue-500"></div>
+                <div class="w-1/4 h-full bg-purple-500"></div>
+                <div class="w-1/4 h-full bg-green-500"></div>
+                <div class="w-1/4 h-full bg-yellow-500"></div>
+            </div>
+        </div>
+    </body>
+</html>

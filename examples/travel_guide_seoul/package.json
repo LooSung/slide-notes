@@ -1,0 +1,12 @@
+{
+    "name": "vibe_coding_presentation",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "export-pdf": "node scripts/export-pdf.js"
+    },
+    "dependencies": {
+        "pdf-lib": "^1.17.1",
+        "puppeteer": "^23.0.0"
+    }
+}
