@@ -6,6 +6,10 @@ package-lock.json
 .puppeteer-tmp/
 output/
 
+# User presentations
+decks/*
+!decks/README.md
+
 # OS
 .DS_Store
 Thumbs.db
@@ -19,6 +23,3 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
-
-# Optional: personal interview prep (uncomment to keep private)
-# decks/*_private/
