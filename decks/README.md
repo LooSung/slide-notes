@@ -1,11 +1,28 @@
-# decks/
+# decks/ — 내 발표 덱
 
-**내가 만드는 슬라이드 덱**이 들어가는 폴더입니다.
+각 덱 폴더가 **작업 단위**입니다.
 
-```bash
-npm run create -- study_topic
-npm run build -- decks/study_topic
-open decks/study_topic/index.html
+## `docs/` = 이 덱 작업 공간
+
+발표 준비할 때 AI와 함께 수정하는 **원고**만 둡니다.
+
+```
+decks/my_deck/docs/
+  00-topic.md      # 주제·청중·원메시지
+  01-title.md      # 제목
+  02-toc.md        # 목차 설계
+  slide-map.md     # MD ↔ HTML 매핑
+  content/         # 장마다 짧은 MD (예: intro_page_03.md)
 ```
 
-면접·스터디 등 민감한 내용은 `*_private` 같은 이름으로 덱을 만들고, 필요하면 루트 `.gitignore`에서 해당 패턴을 제외하세요.
+**도구 설명서**는 레포 `guide/` 에 있습니다. 여기 `docs/` 와 헷갈리지 마세요.
+
+## 명령
+
+```bash
+npm run create -- my_deck
+npm run build -- my_deck
+npm run open -- my_deck
+```
+
+가이드: [guide/START_HERE.md](../guide/START_HERE.md)

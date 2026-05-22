@@ -13,7 +13,7 @@
 3. **목차 장은 1슬라이드** — index/agenda 전용 `page_02.html` (보통 2번째)
 4. **1장 1메시지** — HTML에는 키워드 위주, 자세한 말은 MD
 5. **MD 먼저 → HTML 나중** — MD는 너무 상세하지 않게
-6. **Task 카드** — `docs/tasks/` (수정 가능)
+6. **Task 카드** — `guide/tasks/` (수정 가능)
 
 ---
 
@@ -111,7 +111,7 @@ T5: for each 매핑된 항목 → slides/page_NN.html
 
 ## HTML 단계
 
-- `docs/SLIDE_HTML_RULES.md` + `template/slides/page_1.html` 참고
+- `guide/SLIDE_HTML_RULES.md` + `template/slides/page_1.html` 참고
 - 해당 Task의 **content MD 하나만** 읽고 구현
 - 키워드·제목만 화면, 문단 붙여넣기 금지
 
@@ -119,8 +119,8 @@ T5: for each 매핑된 항목 → slides/page_NN.html
 
 ## Task 카드
 
-- 공통 템플릿: [`tasks/`](./tasks/)
-- 덱별 복사: `decks/<이름>/docs/tasks/`
+- 공통 템플릿: [`guide/tasks/`](./tasks/)
+- 덱별 복사(선택): `decks/<이름>/docs/tasks/`
 - 카드에 **Read / Write / Do NOT / Done when** 고정
 
 ---

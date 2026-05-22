@@ -1,29 +1,14 @@
 ---
-description: slide-notes HTML 슬라이드 덱 — LLM이 slides/ 와 docs/ 를 다룰 때
-globs: decks/**/slides/**/*.html,decks/**/docs/**/*.md,examples/**/slides/**/*.html
+description: slide-notes — 덱 작업 (decks/.../docs, slides)
+globs: decks/**/docs/**/*.md,decks/**/slides/**/*.html
 alwaysApply: false
 ---
 
-# slide-notes 슬라이드 작업
+# 덱 작업 (발표 원고)
 
-이 프로젝트는 **LLM이 HTML 파일을 직접 작성**하는 slide-notes 덱입니다. LangChain/에이전트 그래프는 사용하지 않습니다.
+- **작업 원고:** `decks/<덱>/docs/` (이 경로만 원고)
+- **도구 설명:** `guide/START_HERE.md`, `guide/HARNESS.md`, `guide/SLIDE_HTML_RULES.md`
 
-## 읽을 것
+HTML: 키워드만. MD 먼저, HTML 나중. `page_02` = 목차 index 1장.
 
-- `docs/LLM_WORKFLOW.md`, `docs/SLIDE_HTML_RULES.md`
-- 예시: `examples/vibe_coding/slides/page_1.html`
-
-## 규칙
-
-- 슬라이드 파일명: `page_1.html`, `page_2.html` (숫자 순)
-- `../css/common.css` 필수, 1280×720, 한 장 = 한 메시지
-- 아웃라인은 `docs/01-outline.md` — `## 슬라이드 구성` + 번호 목록
-
-## 작업 후 사용자에게 안내
-
-```bash
-npm run build -- <덱_이름>
-npm run open -- <덱_이름>
-```
-
-덱 이름만 적으면 `decks/<이름>` 으로 해석됩니다.
+완료: `npm run build -- <덱>` · `npm run open -- <덱>`
