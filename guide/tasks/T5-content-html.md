@@ -3,9 +3,10 @@
 ## Read
 
 - `guide/SLIDE_HTML_RULES.md`
-- `examples/vibe_coding/slides/page_01.html` (참고 1장)
+- `template/slides/page_01.html` (기본 틀)
 - **이번** `content/<slug>_page_<NN>.md` 하나만
 - `slide-map.md` 해당 행
+- `02-toc.md` (page_02를 만들 때만)
 
 ## Write
 

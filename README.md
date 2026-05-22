@@ -49,12 +49,15 @@ slide-map은 순서, page, content_md, 소주제 표로 만들고,
 ```text
 my_presentation 원고가 준비됐어.
 
-- 읽기: decks/my_presentation/docs/, guide/SLIDE_HTML_RULES.md
+- 먼저 읽기: decks/my_presentation/docs/slide-map.md, guide/SLIDE_HTML_RULES.md
 - 작성: decks/my_presentation/slides/page_NN.html
-- slide-map 순서대로 장별 원고를 발표용 슬라이드 화면으로 옮겨줘
+- slide-map 순서대로 한 행씩 처리해줘
+- 각 행에서는 content_md에 적힌 장별 원고 하나만 읽고 발표용 슬라이드 화면으로 옮겨줘
 - 화면에는 제목과 키워드 중심으로 두고 말할 설명을 길게 붙이지 마
-- page_02는 목차 한 장으로 만들어줘
+- page_02를 만들 때만 decks/my_presentation/docs/02-toc.md도 읽고 목차 한 장으로 만들어줘
 ```
+
+긴 발표자료는 같은 요청을 page 단위로 나누면 필요한 원고만 읽고 진행할 수 있습니다.
 
 ## 열어 보기
 
