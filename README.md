@@ -1,9 +1,10 @@
 # slide-notes
 
-`slide-notes`는 AI와 함께 발표자료를 만드는 작업 공간입니다.
-말할 흐름은 원고에 남기고, 화면에는 발표에 필요한 단서만 슬라이드로 옮깁니다.
+`slide-notes`는 AI와 함께 빠르게 공유할 발표자료를 만드는 작업 공간입니다. 말할 흐름은 원고에 남기고,
+화면에는 발표에 필요한 단서만 슬라이드로 옮깁니다.
 
-Cursor, Claude Code, Codex처럼 프로젝트 파일을 직접 수정하는 AI와 함께 쓰는 흐름을 전제로 합니다.
+ChatGPT나 Claude의 일반 채팅창만으로도 초안은 만들 수 있지만, 원고와 슬라이드 파일을 나눠 계속 수정하는 작업에는 한계가 있습니다.
+`slide-notes`는 Cursor, Claude Code, Codex처럼 프로젝트 레포지토리를 직접 수정하는 AI와 함께 쓰는 흐름을 전제로 합니다.
 
 ## 기능
 
@@ -103,12 +104,12 @@ PDF는 `decks/my_presentation/output/`에 생성됩니다.
 
 ## 참고 문서
 
-| 문서 | 언제 읽나 |
-| --- | --- |
-| [guide/START_HERE.md](./guide/START_HERE.md) | 첫 발표자료를 만들 때 |
-| [guide/HARNESS.md](./guide/HARNESS.md) | 작업 방식과 파일 구조를 볼 때 |
-| [guide/tasks/](./guide/tasks/) | 긴 발표자료 작업을 나눌 때 |
-| [guide/SLIDE_HTML_RULES.md](./guide/SLIDE_HTML_RULES.md) | 슬라이드 화면을 만들 때 |
+| 문서                                                     | 언제 읽나                     |
+| -------------------------------------------------------- | ----------------------------- |
+| [guide/START_HERE.md](./guide/START_HERE.md)             | 첫 발표자료를 만들 때         |
+| [guide/HARNESS.md](./guide/HARNESS.md)                   | 작업 방식과 파일 구조를 볼 때 |
+| [guide/tasks/](./guide/tasks/)                           | 긴 발표자료 작업을 나눌 때    |
+| [guide/SLIDE_HTML_RULES.md](./guide/SLIDE_HTML_RULES.md) | 슬라이드 화면을 만들 때       |
 
 짧은 예시 발표자료는 `examples/vibe_coding`에 있습니다.
 에이전트용 시작점은 [AGENTS.md](./AGENTS.md), [CLAUDE.md](./CLAUDE.md)입니다.
