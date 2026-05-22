@@ -21,7 +21,6 @@ decks/my_deck/docs/
 
 ```bash
 npm run create -- my_deck
-npm run build -- my_deck
 npm run open -- my_deck
 ```
 

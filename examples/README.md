@@ -4,14 +4,11 @@
 
 | 덱 | 슬라이드 | 설명 |
 | --- | --- | --- |
-| [vibe_coding](./vibe_coding/) | 22장 | 라이브 세션에서 만든 「진격! 바이브 코딩」 덱 (원본 유지) |
-| [travel_guide_seoul](./travel_guide_seoul/) | 5장 | 서울 여행 가이드 짧은 덱 |
+| [vibe_coding](./vibe_coding/) | 22장 | 발표 흐름과 HTML 품질을 볼 수 있는 덱 |
+| [travel_guide_seoul](./travel_guide_seoul/) | 5장 | 하네스 원고 구조를 생략한 짧은 HTML 덱 |
 
 ```bash
 # 예시 덱 보기
-open examples/vibe_coding/index.html
-open examples/travel_guide_seoul/index.html
-
-# 목록 다시 생성
-npm run build -- examples/vibe_coding
+npm run open -- vibe_coding
+npm run open -- travel_guide_seoul
 ```

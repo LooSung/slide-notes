@@ -32,10 +32,10 @@ decks/<덱이름>/
 │   │   └── why-kia_page_03.md  # 소주제-slug_page_NN.md
 │   └── tasks/                # 이 덱용 Task 카드 (복사·수정)
 ├── slides/
-│   ├── page_01.html          # 순서는 page_NN (빌드·뷰어 호환)
+│   ├── page_01.html          # 순서는 page_NN (뷰어 호환)
 │   ├── page_02.html          # ← 목차 index 1장
 │   └── ...
-├── slides-config.js          # npm run build
+├── slides-config.js          # 뷰어용 목록 (`open`이 갱신)
 └── index.html
 ```
 
@@ -52,7 +52,7 @@ decks/<덱이름>/
 | T3b | `slide-map.md` | 장 순서·파일명·소주제 매핑 |
 | T4-i | `content/<slug>_page_NN.md` | **목차 1덩어리당 1 MD**, 짧게 |
 | T5-i | `slides/page_NN.html` | **MD 확정 후** HTML/CSS |
-| T6 | `npm run build/open` | 완성 |
+| T6 | `npm run open -- <덱>` | 확인 |
 
 루프:
 
@@ -111,7 +111,7 @@ T5: for each 매핑된 항목 → slides/page_NN.html
 
 ## HTML 단계
 
-- `guide/SLIDE_HTML_RULES.md` + `template/slides/page_1.html` 참고
+- `guide/SLIDE_HTML_RULES.md` + `template/slides/page_01.html` 참고
 - 해당 Task의 **content MD 하나만** 읽고 구현
 - 키워드·제목만 화면, 문단 붙여넣기 금지
 
@@ -130,11 +130,10 @@ T5: for each 매핑된 항목 → slides/page_NN.html
 ```bash
 npm run create -- <덱>
 # T1~T5 LLM + 파일
-npm run build -- <덱>
 npm run open -- <덱>
 ```
 
-`scaffold`는 선택. 목차·매핑이 잡힌 뒤 T5에서 HTML을 만드는 편이 하네스와 맞다.
+`open`은 `slides/` 목록을 갱신한 뒤 뷰어를 연다. `scaffold`는 내부 보조 도구이며 목차·매핑이 잡힌 뒤 T5에서 HTML을 만드는 편이 하네스와 맞다.
 
 ---
 
@@ -147,5 +146,5 @@ npm run open -- <덱>
                               ↓
               slides/page_NN.html   (루프, page_02=목차 1장)
                               ↓
-                    build → open
+                       open
 ```

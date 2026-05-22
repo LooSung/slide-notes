@@ -20,6 +20,6 @@
 | T3b | [T3b-slide-map.md](./T3b-slide-map.md) | MD↔HTML 매핑 |
 | T4 | [T4-content-md.md](./T4-content-md.md) | Content MD (루프) |
 | T5 | [T5-content-html.md](./T5-content-html.md) | HTML (루프) |
-| T6 | [T6-finish.md](./T6-finish.md) | build / open |
+| T6 | [T6-finish.md](./T6-finish.md) | open / 발표 확인 |
 
 전체 흐름: [../HARNESS.md](../HARNESS.md)

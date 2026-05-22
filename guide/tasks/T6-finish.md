@@ -7,7 +7,6 @@
 ## Run (사용자 터미널)
 
 ```bash
-npm run build -- <덱>
 npm run open -- <덱>
 ```
 
@@ -20,7 +19,7 @@ npm run open -- <덱>
 - [ ] 목차 index가 **page_02 한 장**
 - [ ] 발표 흐름으로 넘겨 보기 (← →)
 - [ ] 화면에 줄글 과다 없음
-- [ ] (선택) `cd decks/<덱> && npm run export-pdf`
+- [ ] (선택) `cd decks/<덱> && npm install && npm run export-pdf`
 
 ## Done when
 

@@ -3,7 +3,7 @@
 ## Read
 
 - `guide/SLIDE_HTML_RULES.md`
-- `examples/vibe_coding/slides/page_1.html` (참고 1장)
+- `examples/vibe_coding/slides/page_01.html` (참고 1장)
 - **이번** `content/<slug>_page_<NN>.md` 하나만
 - `slide-map.md` 해당 행
 

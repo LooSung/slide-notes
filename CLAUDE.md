@@ -13,6 +13,5 @@
 ## 완료 시 안내
 
 ```bash
-npm run build -- <덱_이름>
 npm run open -- <덱_이름>
 ```

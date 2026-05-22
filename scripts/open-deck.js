@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
+const { execFileSync, execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { resolveDeck, deckLabel } = require('./lib/resolve-deck');
@@ -19,6 +19,18 @@ const indexPath = path.join(deckDir, 'index.html');
 if (!fs.existsSync(indexPath)) {
     console.error(`❌ index.html 없음: ${deckLabel(deckDir)}`);
     console.error('💡 npm run create -- <이름> 으로 덱을 먼저 만드세요.');
+    process.exit(1);
+}
+
+const buildScript = path.join(__dirname, 'build-config.js');
+
+try {
+    execFileSync(process.execPath, [buildScript, deckDir], {
+        stdio: 'inherit',
+        env: { ...process.env, SLIDE_NOTES_QUIET: '1' },
+    });
+} catch {
+    console.error('❌ 슬라이드 목록을 갱신하지 못해 뷰어를 열지 않습니다.');
     process.exit(1);
 }
 

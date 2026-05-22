@@ -1,16 +1,15 @@
-// 슬라이드 목록 설정
-// 자동 생성됨 - build.js 실행 시 slides 폴더의 HTML 파일을 기반으로 생성됩니다.
-// docs 폴더는 프롬프트/정의서용이며, 빌드 과정에서는 사용하지 않습니다.
+// 슬라이드 목록 — npm run open -- <덱> 이 자동 갱신
+// docs/ 는 메모·프롬프트용 (뷰어에 미사용)
 
 const SLIDES = [
-    { file: 'page_1.html', title: '진격! 바이브 코딩 - 커버' },
-    { file: 'page_2.html', title: '진격! 바이브 코딩 - 아젠다' },
-    { file: 'page_3.html', title: 'Part 1. 바이브 코딩은 정답이 아닙니다 :(' },
-    { file: 'page_4.html', title: '문제 1: 코드부터 짜고 나중에 후회' },
-    { file: 'page_5.html', title: '문제 2: 설계 없이 시작하면 리팩토링 지옥' },
-    { file: 'page_7.html', title: '해결책: 바이브 코딩' },
-    { file: 'page_8.html', title: 'Part 2. 핵심 방법론' },
-    { file: 'page_9.html', title: '바이브 코딩을 시작하려면?' },
+    { file: 'page_01.html', title: '진격! 바이브 코딩 - 커버' },
+    { file: 'page_02.html', title: '진격! 바이브 코딩 - 아젠다' },
+    { file: 'page_03.html', title: 'Part 1. 바이브 코딩은 정답이 아닙니다 :(' },
+    { file: 'page_04.html', title: '문제 1: 코드부터 짜고 나중에 후회' },
+    { file: 'page_05.html', title: '문제 2: 설계 없이 시작하면 리팩토링 지옥' },
+    { file: 'page_07.html', title: '해결책: 바이브 코딩' },
+    { file: 'page_08.html', title: 'Part 2. 핵심 방법론' },
+    { file: 'page_09.html', title: '바이브 코딩을 시작하려면?' },
     { file: 'page_10.html', title: '3단계 프로세스 개요' },
     { file: 'page_11.html', title: 'Step 0. 프로젝트 초기화' },
     { file: 'page_12.html', title: 'Step 1. 구조 설계' },

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * docs/*.md 아웃라인 → slides/page_N.html 빈 틀 생성 (LLM이 내용 채움)
+ * docs/*.md 아웃라인 → slides/page_NN.html 빈 틀 생성 (LLM이 내용 채움)
  */
 
 const fs = require('fs');
@@ -24,7 +24,7 @@ if (!fs.existsSync(deckDir)) {
 
 const docsDir = path.join(deckDir, 'docs');
 const slidesDir = path.join(deckDir, 'slides');
-const templateSlide = path.join(REPO_ROOT, 'template/slides/page_1.html');
+const templateSlide = path.join(REPO_ROOT, 'template/slides/page_01.html');
 
 if (!fs.existsSync(docsDir)) {
     console.error('❌ docs/ 폴더 없음');
@@ -43,6 +43,9 @@ function parseOutlineFromMarkdown(content) {
         }
         if (inSlidesSection && /^##\s+/.test(line) && !/^##\s+슬라이드/.test(line)) {
             break;
+        }
+        if (!inSlidesSection) {
+            continue;
         }
 
         const numbered =
@@ -99,7 +102,7 @@ function makeSlideHtml(title, pageNum) {
 let created = 0;
 slideTitles.forEach((title, i) => {
     const pageNum = i + 1;
-    const filename = `page_${pageNum}.html`;
+    const filename = `page_${String(pageNum).padStart(2, '0')}.html`;
     const outPath = path.join(slidesDir, filename);
 
     if (fs.existsSync(outPath) && pageNum === 1) {
@@ -118,4 +121,4 @@ slideTitles.forEach((title, i) => {
 
 console.log('');
 console.log(`📝 ${created}개 틀 생성 (${slideTitles.length}장 구성)`);
-console.log('다음: LLM에게 slides/ 내용 채우기 요청 → npm run build -- ' + name);
+console.log('다음: LLM에게 slides/ 내용 채우기 요청 → npm run open -- ' + name);

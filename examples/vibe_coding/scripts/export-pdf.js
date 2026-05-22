@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * 모든 HTML 슬라이드를 하나의 PDF로 변환합니다.
- * vibe_coding 폴더에서 실행: node scripts/export-pdf.js
+ * 덱 폴더에서 실행: node scripts/export-pdf.js
  * 또는: npm run export-pdf
  */
 
@@ -15,16 +15,20 @@ const outputDir = path.join(projectRoot, 'output');
 const outputFile = path.join(outputDir, `${projectName}_slides.pdf`);
 
 async function getSlideOrder() {
-    const configPath = path.join(projectRoot, 'slides-config.js');
-    const content = fs.readFileSync(configPath, 'utf8');
-    const matches = content.matchAll(/file:\s*['"]([^'"]+)['"]/g);
-    return [...matches].map((m) => m[1]);
+    return fs
+        .readdirSync(slidesDir)
+        .filter((file) => /^page_\d+\.html$/.test(file))
+        .sort((a, b) => {
+            const pageA = parseInt(a.match(/\d+/)[0], 10);
+            const pageB = parseInt(b.match(/\d+/)[0], 10);
+            return pageA - pageB;
+        });
 }
 
 async function main() {
     const slideFiles = await getSlideOrder();
     if (slideFiles.length === 0) {
-        console.error('slides-config.js에서 슬라이드 목록을 읽지 못했습니다.');
+        console.error('slides/에서 page_NN.html 슬라이드를 찾지 못했습니다.');
         process.exit(1);
     }
 

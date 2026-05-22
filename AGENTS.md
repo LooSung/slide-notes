@@ -5,4 +5,4 @@
 
 규칙: [guide/SLIDE_HTML_RULES.md](./guide/SLIDE_HTML_RULES.md)
 
-완료: `npm run build -- <이름>` · `npm run open -- <이름>`
+완료: `npm run open -- <이름>`
