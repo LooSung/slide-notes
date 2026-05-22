@@ -3,7 +3,7 @@
 /**
  * slides/*.html → slides-config.js 생성
  *
- * 사용법: node scripts/build-config.js <덱_경로>
+ * 사용법: node scripts/build-config.js <발표자료_경로>
  * 예시: node scripts/build-config.js decks/my_topic
  */
 
@@ -15,8 +15,8 @@ const deckInput = process.argv[2];
 const quiet = process.env.SLIDE_NOTES_QUIET === '1';
 
 if (!deckInput) {
-    console.error('❌ 사용법: npm run build -- <덱_이름>');
-    console.error('예시: npm run build -- kia_pt');
+    console.error('❌ 사용법: npm run build -- <발표자료_이름>');
+    console.error('예시: npm run build -- my_presentation');
     process.exit(1);
 }
 
@@ -24,7 +24,7 @@ const projectDir = resolveDeck(deckInput);
 const slidesDir = path.join(projectDir, 'slides');
 
 if (!fs.existsSync(projectDir)) {
-    console.error(`❌ 덱 폴더를 찾을 수 없습니다: ${projectDir}`);
+    console.error(`❌ 발표자료 폴더를 찾을 수 없습니다: ${projectDir}`);
     process.exit(1);
 }
 
@@ -72,7 +72,7 @@ const htmlFiles = fs
     });
 
 if (htmlFiles.length === 0) {
-    console.error('❌ slides/에 HTML 파일이 없습니다.');
+    console.error('❌ slides/에 슬라이드 파일이 없습니다.');
     process.exit(1);
 }
 
@@ -93,7 +93,7 @@ for (const htmlFile of htmlFiles) {
     const duplicate = pageNumbers.get(pageNumber);
     if (duplicate) {
         console.error(`❌ 같은 페이지 번호가 겹칩니다: ${duplicate}, ${htmlFile}`);
-        console.error('💡 신규 덱 규칙은 page_01.html, page_02.html 형식입니다.');
+        console.error('💡 새 발표자료는 page_01.html, page_02.html 형식을 씁니다.');
         process.exit(1);
     }
     pageNumbers.set(pageNumber, htmlFile);
@@ -115,8 +115,8 @@ const slidesArray = slides
     })
     .join(',\n');
 
-const configContent = `// 슬라이드 목록 — npm run open -- <덱> 이 자동 갱신
-// docs/ 는 메모·프롬프트용 (뷰어에 미사용)
+const configContent = `// 슬라이드 목록 — npm run open -- <발표자료_이름> 이 자동 갱신
+// docs/ 는 메모·프롬프트용 (미리보기에 미사용)
 
 const SLIDES = [
 ${slidesArray}

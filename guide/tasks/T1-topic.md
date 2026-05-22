@@ -1,4 +1,4 @@
-# Task T1 — 주제 선정
+# 작업 T1 — 주제 선정
 
 ## Read
 
@@ -6,11 +6,11 @@
 
 ## Write
 
-- `decks/<덱>/docs/00-topic.md`
+- `decks/<발표자료_이름>/docs/00-topic.md`
 
 ## Do NOT
 
-- HTML, 목차, content MD
+- 슬라이드 화면, 목차, 장별 원고
 - 장황한 원고
 
 ## 내용 (템플릿)
@@ -24,4 +24,4 @@
 ## Done when
 
 - 원 메시지 1문장 확정
-- 다음 Task T2 진행 가능
+- 다음 작업 T2 진행 가능

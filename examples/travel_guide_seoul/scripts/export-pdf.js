@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * 모든 HTML 슬라이드를 하나의 PDF로 변환합니다.
- * 덱 폴더에서 실행: node scripts/export-pdf.js
+ * 발표자료 폴더에서 실행: node scripts/export-pdf.js
  * 또는: npm run export-pdf
  */
 

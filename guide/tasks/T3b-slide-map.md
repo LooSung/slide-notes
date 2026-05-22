@@ -1,4 +1,4 @@
-# Task T3b — slide-map (MD ↔ HTML)
+# 작업 T3b — slide-map (원고 ↔ 슬라이드)
 
 ## Read
 
@@ -6,18 +6,18 @@
 
 ## Write
 
-- `decks/<덱>/docs/slide-map.md`
+- `decks/<발표자료_이름>/docs/slide-map.md`
 
 ## Do NOT
 
-- HTML, 긴 본문
+- 슬라이드 화면, 긴 본문
 
 ## 형식
 
 | 순서 | page | content_md | 소주제 (한 줄) |
 |------|------|------------|----------------|
 | 1 | page_01.html | cover_page_01.md | 커버 |
-| 2 | page_02.html | agenda_page_02.md | 목차 index |
+| 2 | page_02.html | agenda_page_02.md | 목차 |
 | 3 | page_03.html | why-kia_page_03.md | … |
 
 - `content_md` 파일명: `{slug}_page_{NN}.md`

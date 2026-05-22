@@ -1,16 +1,16 @@
-# Task T2 — Title
+# 작업 T2 — 제목
 
 ## Read
 
-- `decks/<덱>/docs/00-topic.md`
+- `decks/<발표자료_이름>/docs/00-topic.md`
 
 ## Write
 
-- `decks/<덱>/docs/01-title.md`
+- `decks/<발표자료_이름>/docs/01-title.md`
 
 ## Do NOT
 
-- HTML, 전체 목차 상세, content MD
+- 슬라이드 화면, 전체 목차 상세, 장별 원고
 
 ## 내용
 

@@ -2,14 +2,14 @@
 
 ## 파일
 
-- 경로: `decks/<덱>/slides/page_01.html`, `page_02.html`, …
-- **`<title>`** = 슬라이드 제목 (뷰어 목록에 표시)
+- 경로: `decks/<발표자료_이름>/slides/page_01.html`, `page_02.html`, …
+- **`<title>`** = 슬라이드 제목 (미리보기 목록에 표시)
 
 ## 레이아웃
 
 - 크기: **1280 × 720** (`common.css`의 `.slide-container`)
 - 필수: `<link rel="stylesheet" href="../css/common.css" />`
-- CDN: Tailwind 2.2, Noto Sans KR, Font Awesome (템플릿 `page_01.html` 참고)
+- 스타일·글꼴·아이콘은 템플릿 `page_01.html` 참고
 
 ## 디자인
 
@@ -27,5 +27,5 @@
 사용자에게 알릴 명령:
 
 ```bash
-npm run open -- <덱_이름>
+npm run open -- <발표자료_이름>
 ```

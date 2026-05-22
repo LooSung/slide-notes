@@ -12,12 +12,12 @@ const name = process.argv[2];
 const deckDir = resolveDeck(name);
 
 if (!name) {
-    console.error('❌ 사용법: npm run scaffold -- <덱_이름>');
+    console.error('❌ 사용법: npm run scaffold -- <발표자료_이름>');
     process.exit(1);
 }
 
 if (!fs.existsSync(deckDir)) {
-    console.error(`❌ 덱 없음: ${deckLabel(deckDir)}`);
+    console.error(`❌ 발표자료 없음: ${deckLabel(deckDir)}`);
     console.error('💡 npm run create -- <이름>');
     process.exit(1);
 }

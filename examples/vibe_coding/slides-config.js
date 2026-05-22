@@ -1,5 +1,5 @@
-// 슬라이드 목록 — npm run open -- <덱> 이 자동 갱신
-// docs/ 는 메모·프롬프트용 (뷰어에 미사용)
+// 슬라이드 목록 — npm run open -- <발표자료_이름> 이 자동 갱신
+// docs/ 는 메모·프롬프트용 (미리보기에 미사용)
 
 const SLIDES = [
     { file: 'page_01.html', title: '진격! 바이브 코딩 - 커버' },

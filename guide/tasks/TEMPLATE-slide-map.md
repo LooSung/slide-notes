@@ -1,9 +1,9 @@
-# slide-map — <덱이름>
+# slide-map — <발표자료_이름>
 
 | 순서 | page | content_md | 소주제 |
 |------|------|------------|--------|
 | 1 | page_01.html | cover_page_01.md | 커버 |
-| 2 | page_02.html | agenda_page_02.md | 목차 index |
+| 2 | page_02.html | agenda_page_02.md | 목차 |
 | 3 | page_03.html | | |
 | | | | |
 

@@ -4,7 +4,7 @@ const path = require('path');
 const REPO_ROOT = path.join(__dirname, '../..');
 
 /**
- * 덱 이름 또는 경로 → 절대 경로
+ * 발표자료 이름 또는 경로 → 절대 경로
  * - kia_pt → decks/kia_pt (없으면 examples/kia_pt)
  * - decks/kia_pt, examples/vibe_coding 그대로 지원
  */
@@ -33,7 +33,7 @@ function resolveDeck(input) {
         return inExamples;
     }
 
-    // 새 덱: 기본은 decks/
+    // 새 발표자료: 기본은 decks/
     return inDecks;
 }
 

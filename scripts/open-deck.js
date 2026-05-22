@@ -9,8 +9,8 @@ const name = process.argv[2];
 const deckDir = resolveDeck(name);
 
 if (!name) {
-    console.error('❌ 사용법: npm run open -- <덱_이름>');
-    console.error('예시: npm run open -- kia_pt');
+    console.error('❌ 사용법: npm run open -- <발표자료_이름>');
+    console.error('예시: npm run open -- my_presentation');
     process.exit(1);
 }
 
@@ -18,7 +18,7 @@ const indexPath = path.join(deckDir, 'index.html');
 
 if (!fs.existsSync(indexPath)) {
     console.error(`❌ index.html 없음: ${deckLabel(deckDir)}`);
-    console.error('💡 npm run create -- <이름> 으로 덱을 먼저 만드세요.');
+    console.error('💡 npm run create -- <이름> 으로 발표자료를 먼저 만드세요.');
     process.exit(1);
 }
 
@@ -30,7 +30,7 @@ try {
         env: { ...process.env, SLIDE_NOTES_QUIET: '1' },
     });
 } catch {
-    console.error('❌ 슬라이드 목록을 갱신하지 못해 뷰어를 열지 않습니다.');
+    console.error('❌ 슬라이드를 준비하지 못해 미리보기를 열지 않습니다.');
     process.exit(1);
 }
 

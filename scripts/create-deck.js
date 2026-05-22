@@ -14,8 +14,8 @@ function fail(message) {
 }
 
 if (!deckName) {
-    console.error('❌ 사용법: npm run create -- <덱_이름>');
-    console.error('예시: npm run create -- study_react');
+    console.error('❌ 사용법: npm run create -- <발표자료_이름>');
+    console.error('예시: npm run create -- my_presentation');
     process.exit(1);
 }
 
@@ -25,7 +25,7 @@ if (
     deckName.includes('/') ||
     deckName.includes('\\')
 ) {
-    fail('덱 이름에는 경로 구분자를 넣을 수 없습니다.');
+    fail('발표자료 이름에는 경로 구분자를 넣을 수 없습니다.');
 }
 
 if (fs.existsSync(deckDir)) {
@@ -87,12 +87,12 @@ const packageSuffix =
 deckPackage.name = `slide-notes-${packageSuffix}`;
 fs.writeFileSync(packagePath, `${JSON.stringify(deckPackage, null, 4)}\n`, 'utf8');
 
-console.log(`🚀 덱 생성: ${deckLabel(deckDir)}`);
+console.log(`🚀 발표자료 생성: ${deckLabel(deckDir)}`);
 require('./build-config');
 console.log('');
 console.log('다음:');
-console.log(`  작업 원고 → decks/${deckName}/docs/  (주제·목차·content)`);
+console.log(`  원고       → decks/${deckName}/docs/`);
 console.log('  가이드     → guide/START_HERE.md');
-console.log('  1. guide/START_HERE Step 1 (AI로 00-topic ~ slide-map)');
-console.log('  2. content/*.md → slides/*.html');
+console.log('  1. AI와 발표 원고 만들기');
+console.log('  2. 원고를 슬라이드 화면으로 옮기기');
 console.log(`  3. npm run open -- ${deckName}`);
