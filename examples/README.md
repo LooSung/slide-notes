@@ -13,5 +13,5 @@ open examples/vibe_coding/index.html
 open examples/travel_guide_seoul/index.html
 
 # 목록 다시 생성
-node build.js examples/vibe_coding
+npm run build -- examples/vibe_coding
 ```

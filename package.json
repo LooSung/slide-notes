@@ -1,0 +1,12 @@
+{
+    "name": "slide-notes",
+    "version": "1.0.0",
+    "private": true,
+    "description": "HTML slide deck harness for study notes and presentation prep (LLM + code workflow)",
+    "scripts": {
+        "create": "bash scripts/create-deck.sh",
+        "build": "node scripts/build-config.js",
+        "open": "node scripts/open-deck.js",
+        "scaffold": "node scripts/scaffold-from-outline.js"
+    }
+}

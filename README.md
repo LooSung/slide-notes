@@ -2,8 +2,11 @@
 
 **License:** MIT
 
-스터디·발표·면접 PT 준비 때, 생각을 **HTML 슬라이드**로 정리하는 개인 워크스페이스입니다.  
-구조와 워크플로는 [tobyilee/book-writer](https://github.com/tobyilee/book-writer)처럼 **「정리 → 산출물 → 빌드 → 결과물」** 흐름을 따릅니다. (책 대신 슬라이드 덱)
+스터디·발표·면접 PT 준비 때, **Cursor / Claude Code / Codex** 등 LLM이 **HTML 파일을 직접 작성**하고, npm 스크립트로 빌드·발표하는 워크스페이스입니다.
+
+LangChain·멀티 에이전트 오케스트레이션은 쓰지 않습니다. [book-writer](https://github.com/tobyilee/book-writer)처럼 **진입 문서 + 파일 규칙 + 스크립트**만 두는 형태입니다.
+
+**LLM용 문서:** [docs/LLM_WORKFLOW.md](./docs/LLM_WORKFLOW.md) · [CLAUDE.md](./CLAUDE.md) · [AGENTS.md](./AGENTS.md)
 
 ## 이 하네스가 하는 일
 
@@ -15,7 +18,7 @@
 | 3. 발표 | 브라우저 뷰어로 확인 | `index.html` |
 | 4. PDF (선택) | 전체 덱을 한 PDF로 | `output/{덱이름}_slides.pdf` |
 
-> `docs/`는 **프롬프트·메모용**이며 `build.js`가 변환하지 않습니다. 실제 발표는 `slides/`의 HTML만 사용합니다.
+> `docs/`는 **프롬프트·메모용**이며 빌드 스크립트가 변환하지 않습니다. 실제 발표는 `slides/`의 HTML만 사용합니다.
 
 ## 빠른 시작
 
@@ -23,24 +26,36 @@
 git clone https://github.com/LooSung/slide-notes.git
 cd slide-notes
 
-# 새 덱 (스터디, PT 준비 등)
-./create-presentation.sh my_topic
+# 새 덱
+npm run create -- my_topic
 
-# 슬라이드 추가 후 목록 갱신
-node build.js decks/my_topic
+# docs/01-outline.md 작성 후 HTML 틀 생성 (선택)
+npm run scaffold -- my_topic
 
-# 발표 보기 (← → Space)
-open decks/my_topic/index.html
+# LLM이 slides/page_*.html 내용 작성 → 목록 갱신 → 발표
+npm run build -- my_topic
+npm run open -- my_topic
 
-# PDF (선택, 최초 1회 npm install)
+# PDF (선택, 덱 폴더에서 최초 1회 npm install)
 cd decks/my_topic && npm install && npm run export-pdf
 ```
+
+### CLI (하네스 도구)
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `npm run create -- <이름>` | `decks/<이름>/` 생성 |
+| `npm run scaffold -- <이름>` | `docs/` 아웃라인 → `slides/page_*.html` 틀 |
+| `npm run build -- <이름>` | `slides-config.js` 갱신 |
+| `npm run open -- <이름>` | 브라우저 뷰어 |
+
+`<이름>`만 적으면 `decks/<이름>` 으로 해석됩니다. CLI는 [`scripts/`](./scripts/README.md).
 
 ## 사전 준비
 
 | 도구 | 용도 | 필수 |
 | --- | --- | --- |
-| Node.js 18+ | `build.js`, PDF export | 빌드·PDF 시 |
+| Node.js 18+ | `npm run build`, PDF export | 빌드·PDF 시 |
 | 브라우저 | `index.html` 뷰어 | ✅ |
 | npm | Puppeteer (PDF만) | PDF 시 |
 
@@ -48,11 +63,10 @@ cd decks/my_topic && npm install && npm run export-pdf
 
 ```
 slide-notes/
-├── README.md                 # 이 파일
-├── LICENSE                   # MIT
-├── build.js                  # slides → slides-config.js
-├── create-presentation.sh    # decks/<이름> 스캐폴딩
-├── template/                 # 새 덱 템플릿 (수정하지 말고 복사용)
+├── README.md
+├── package.json              # npm run create | build
+├── scripts/                  # 하네스 CLI (create-deck, build-config)
+├── template/                 # 새 덱 템플릿 (복사용)
 ├── decks/                    # 👤 내 덱 (git에 올릴 개인 작업)
 │   └── my_topic/
 ├── examples/                 # 📎 샘플 덱
@@ -68,7 +82,7 @@ slide-notes/
 decks/my_topic/
 ├── docs/              # 생각 정리·AI 프롬프트 (빌드 미사용)
 ├── slides/            # page_1.html, page_2.html …
-├── slides-config.js   # build.js로 자동 생성
+├── slides-config.js   # npm run build 로 자동 생성
 ├── index.html         # 발표 뷰어
 ├── css/common.css     # 공통 스타일 (1280×720)
 ├── templates/         # head 참고용
@@ -88,7 +102,7 @@ open examples/travel_guide_seoul/index.html
 
 ## 슬라이드 작성 규칙
 
-- **파일명**: `page_1.html`, `page_2.html` … (`build.js`가 숫자 순 정렬)
+- **파일명**: `page_1.html`, `page_2.html` … (빌드 시 숫자 순 정렬)
 - **크기**: 1280×720 (16:9), `../css/common.css` 링크
 - **한 장 = 한 메시지** (PT·면접에 유리)
 - **제목**: `<title>` 태그 → `slides-config.js`에 반영
@@ -96,7 +110,7 @@ open examples/travel_guide_seoul/index.html
 새 슬라이드 추가·수정 후:
 
 ```bash
-node build.js decks/my_topic
+npm run build -- decks/my_topic
 ```
 
 ## AI로 슬라이드 만들기
@@ -128,7 +142,7 @@ npm run export-pdf
 
 ### `index.html`에서 슬라이드가 안 넘어감
 
-`node build.js <덱_경로>`를 실행했는지, `slides-config.js`가 있는지 확인하세요.
+`npm run build -- <덱_경로>`를 실행했는지, `slides-config.js`가 있는지 확인하세요.
 
 ### PDF가 비어 있음
 
@@ -139,7 +153,7 @@ npm run export-pdf
 덱은 `examples/vibe_coding`으로 이동했습니다.
 
 ```bash
-node build.js examples/vibe_coding
+npm run build -- examples/vibe_coding
 open examples/vibe_coding/index.html
 ```
 

@@ -3,10 +3,8 @@
 **내가 만드는 슬라이드 덱**이 들어가는 폴더입니다.
 
 ```bash
-# 새 덱 만들기 (루트에서)
-./create-presentation.sh study_topic
-
-# 보기
+npm run create -- study_topic
+npm run build -- decks/study_topic
 open decks/study_topic/index.html
 ```
 
