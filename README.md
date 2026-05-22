@@ -106,4 +106,6 @@ PDF는 `decks/my_presentation/output/`에 생성됩니다.
 짧은 예시 발표자료는 `examples/vibe_coding`에 있습니다.
 에이전트용 시작점은 [AGENTS.md](./AGENTS.md), [CLAUDE.md](./CLAUDE.md)입니다.
 
+이 저장소의 제품 흐름과 문서는 Codex와 함께 다듬고 있습니다.
+
 **License:** MIT - [LICENSE](./LICENSE)
